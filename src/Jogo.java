@@ -202,6 +202,9 @@ public class Jogo  {
             case "desfazer":
                 desfazerItem(comando);
                 break;
+            case "meus-itens":
+                System.out.println(paciente.ListarMeusItens());
+                break;
             default:
                 break;
         }
