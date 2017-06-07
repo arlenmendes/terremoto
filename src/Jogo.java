@@ -183,22 +183,27 @@ public class Jogo  {
         }
 
         String palavraDeComando = comando.getPalavraDeComando();
-        if (palavraDeComando.equals("ajuda")) {
-            imprimirAjuda();
-        }
-        else if (palavraDeComando.equals("ir")) {
-            irParaAmbiente(comando);
-        }
-        else if (palavraDeComando.equals("sair")) {
-            querSair = sair(comando);
-        }
-        else if(palavraDeComando.equals("observar")) {
-            System.out.println(ambienteAtual.getDescricaoLonga());
-        }
-        else if(palavraDeComando.equals("coletar")) {
-            coletarItem(comando);
-        } else if(palavraDeComando.equals("desfazer")){
-            desfazerItem(comando);
+        switch (palavraDeComando) {
+            case "ajuda":
+                imprimirAjuda();
+                break;
+            case "ir":
+                irParaAmbiente(comando);
+                break;
+            case "sair":
+                querSair = sair(comando);
+                break;
+            case "observar":
+                System.out.println(ambienteAtual.getDescricaoLonga());
+                break;
+            case "coletar":
+                coletarItem(comando);
+                break;
+            case "desfazer":
+                desfazerItem(comando);
+                break;
+            default:
+                break;
         }
 
         return querSair;
