@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class Ambiente  {
     private String descricao;
-    private HashMap<String, Ambiente> saidas;
+    private HashMap<String, Saida> saidas;
     private HashMap<String, Item> itens;
 
     /**
@@ -43,8 +43,8 @@ public class Ambiente  {
      * @param direcao informa a direção da saida
      * @param ambiente informa o ambiente dessa deirecao
      */
-    public void setSaida(String direcao, Ambiente ambiente) {
-        saidas.put(direcao, ambiente);
+    public void setSaida(String direcao, Saida saida) {
+        saidas.put(direcao, saida);
     }
     
     /**
@@ -81,9 +81,9 @@ public class Ambiente  {
         return descricao;
     }
     /**
-     * @return O ambiente da direção informada.
+     * @return A saida da direção informada.
      */
-    public Ambiente getAmbiente(String direcao) {
+    public Saida getSaida(String direcao) {
         if(saidas.containsKey(direcao))
             return saidas.get(direcao);
         return null;
@@ -109,6 +109,9 @@ public class Ambiente  {
             for(String item : this.itens.keySet()){
                 resposta = resposta + item + " ";
             }
+            
+        if(resposta.equals(""))
+            return "nenhum";
         return resposta;
     }
     /**
