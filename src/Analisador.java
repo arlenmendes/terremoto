@@ -3,8 +3,10 @@
 import java.util.Scanner;
 
 /**
- * Esta classe eh parte da aplicacao "World of Zuul".
- * "World of Zuul" eh um jogo de aventura muito simples, baseado em texto.  
+ * Classe Analisador - um ambiente em um jogo adventure.
+ *
+ * Esta classe eh parte da aplicacao "Terremoto".
+ * "Terremoto" eh um jogo de aventura muito simples, baseado em texto.  
  * 
  * Esse analisador le a entrada do usuario e tenta interpreta-la como um
  * comando "Adventure". Cada vez que eh chamado ele le uma linha do terminal
