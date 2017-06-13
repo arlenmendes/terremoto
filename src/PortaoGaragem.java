@@ -1,3 +1,5 @@
+
+
 /**
  * Esta classe representa uma Saida do Tipo Portao de Garagem
  * @author arlen

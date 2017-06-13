@@ -1,3 +1,5 @@
+
+
 /**
  * Esta classe representa as saidas dos Ambientes do hospital.
  * @author arlen

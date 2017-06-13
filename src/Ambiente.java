@@ -1,4 +1,6 @@
 
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,11 +27,8 @@ public class Ambiente  {
 
     /**
      * Cria um ambiente com a "descricao" passada. Inicialmente, ele
-     * nao tem saidas. "descricao" eh algo como "uma cozinha" ou
-     * "
-     * Create a room described "description". Initially, it has
-     * no exits. "description" is something like "a kitchen" or
-     * "um jardim aberto".
+     * nao tem saidas. "descricao" eh algo como "Sala de Espera" ou
+     * "Recepção"
      * @param descricao A descricao do ambiente.
      */
     public Ambiente(String descricao)  {
@@ -41,7 +40,7 @@ public class Ambiente  {
     /**
      * Define as saidas do ambiente. Cada direcao ou leva a um ambiente
      * @param direcao informa a direção da saida
-     * @param ambiente informa o ambiente dessa deirecao
+     * @param saida informa a saida dessa direcao
      */
     public void setSaida(String direcao, Saida saida) {
         saidas.put(direcao, saida);
@@ -81,6 +80,7 @@ public class Ambiente  {
         return descricao;
     }
     /**
+     * @param direcao busca uma saida para determinada direcao
      * @return A saida da direção informada.
      */
     public Saida getSaida(String direcao) {

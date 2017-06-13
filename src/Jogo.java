@@ -1,3 +1,5 @@
+
+
 /**
  *  Essa eh a classe principal da aplicacao "Terremoto".
  *  "Terremoto" eh um jogo de aventura muito simples, baseado em texto.
@@ -8,8 +10,8 @@
  *  "jogar".
  * 
  *  Essa classe principal cria e inicializa todas as outras: ela cria os
- *  ambientes, cria o analisador e comeca o jogo. Ela tambeme avalia e 
- *  executa os comandos que o analisador retorna.
+ *  ambientes, cria as saídas, cria os itens, cria o analisador e comeca o jogo.
+ * Ela tambem avalia e executa os comandos que o analisador retorna.
  * 
  * @author  Arlen Mateus Mendes
  * @version 2011.07.31 (2017.05.16)
@@ -19,6 +21,9 @@ public class Jogo  {
     private Analisador analisador;
     private Ambiente ambienteAtual;
     private Paciente paciente;
+    //cria itens
+    private Item chave, bisturi, avental, controlePortao, siringa, soro, peDeCabra;
+    private Gerador gerador;
     
     //status das portas
     private final String liberada = "liberada";
@@ -34,7 +39,7 @@ public class Jogo  {
      * Cria o jogo e incializa seu mapa interno.
      */
     public Jogo() {
-        criarAmbientes();
+        prepararAmbientes();
         analisador = new Analisador();
         paciente = new Paciente();
     }
@@ -42,17 +47,17 @@ public class Jogo  {
     /**
      * Cria todos os ambientes, liga as saidas deles e seta seus itens
      */
-    private void criarAmbientes() {
+    private void prepararAmbientes() {
         Ambiente exterior, saguao, garagem, recepicaoGeral, triagem, corredor, recepcaoUti, uti, salaEsperaUti, recepcaoCti, cti, salaEsperaCti, salaFuncionarios, salaLimpeza, almoxerifado, salaSeguranca, salaMaquinas;
         
-        Item chave, bisturi, gerador, avental, controlePortao, siringa, soro, peDeCabra;
+        
         
         //cria itens
         chave = new Item("chave", "chave da porta da recepção para a garagem", 2);
         bisturi = new Item("bisturi","Bisturi para cirurgias", 2);
         gerador = new Gerador("gerador","Gerador de energia", 50);
         controlePortao = new Item("controle-portao","Controle do Portao da Garagem", 2);
-        peDeCabra = new Item("pe-de-cabra","Pe de Cabra de ferro", 4);
+        peDeCabra = new Item("pe-de-cabra","Pe de Cabra de ferro", 6);
         
         
         // cria os ambientes
@@ -84,10 +89,10 @@ public class Jogo  {
         recepicaoGeral.setSaida("norte", new Saida(triagem, liberada, null, liberadaDescricao));
         
         garagem.setSaida("leste", new Saida(recepicaoGeral, trancada, chave, trancadaDescricao));
-        garagem.setSaida("oeste", new Saida(exterior, trancada, controlePortao, trancadaDescricao));
+        garagem.setSaida("oeste", new PortaoGaragem(exterior, trancada, controlePortao, trancadaDescricao));
         
         triagem.setSaida("sul", new Saida(recepicaoGeral, liberada, null, liberadaDescricao));
-        triagem.setSaida("norte", new Saida(corredor, trancada, peDeCabra, trancadaDescricao));
+        triagem.setSaida("norte", new Saida(corredor, liberada, null, liberadaDescricao));
         
         corredor.setSaida("norte", new Saida(recepcaoCti, liberada, null, liberadaDescricao));
         corredor.setSaida("leste", new Saida(salaFuncionarios, liberada, null, liberadaDescricao));
@@ -125,10 +130,15 @@ public class Jogo  {
         salaEsperaUti.setSaida("sul", new Saida(recepcaoUti, liberada, null, liberadaDescricao));
         
         // adiciona itens aos ambientes
-        saguao.setItem(chave.getNome(), chave);
+        salaSeguranca.setItem(chave.getNome(), chave);
+        salaSeguranca.setItem(controlePortao.getNome(), controlePortao);
+        
+        almoxerifado.setItem(peDeCabra.getNome(), peDeCabra);
+        
+        salaMaquinas.setItem(gerador.getNome(), gerador);
         
 
-        ambienteAtual = saguao;  // o jogo comeca na uti
+        ambienteAtual = salaMaquinas;  // o jogo comeca na uti
     }
 
     /**
@@ -205,10 +215,27 @@ public class Jogo  {
             case "meus-itens":
                 System.out.println(paciente.ListarMeusItens());
                 break;
+            case "ligar":
+                ligarGerador(comando);
+                break;
             default:
                 break;
         }
-
+        
+        if(ambienteAtual.getDescricao().equals("experior do hospital")){
+            System.out.println("Parabéns, você conseguiu sair do Hospital");
+            System.out.println("Você venceu!!!!!");
+            querSair = true;
+        } else if(gerador.ligado()){
+            if(!gerador.haTempoDisponivel()) {
+                System.out.println("GAME OVER");
+                System.out.println("O gerador Acabou a Energia e você não pode mais");
+                System.out.println("sair do Hospital.");
+                querSair = true;
+            }
+            
+                
+        }
         return querSair;
     }
 
@@ -244,23 +271,60 @@ public class Jogo  {
         String direcao = comando.getSegundaPalavra();
 
         // Tenta sair do ambiente atual
-        //refazer
         Saida saida = ambienteAtual.getSaida(direcao);
-        if(saida != null){ 
+        //verifica se a direção informada existe
+        if(saida != null){
+            //verifica se a saida esta liberada, obstruida ou trancada
             if(saida.getStatusSaida().getLiberada().equals(liberada)){
+                //verifica se o gerador está ligado
+                //a cada movimentação entre ambientes, o gerador "consome combustivel"
+                if(this.gerador.ligado())
+                    gerador.passarTempo();
                 ambienteAtual = saida.getAmbiente();
+                System.out.println("Voce esta " + ambienteAtual.getDescricaoLonga());
             } else if(saida.getStatusSaida().getLiberada().equals(obstruida)) {
+                
                 System.out.println("Ops! Você não pode passar por aqui " + saida.getStatusSaida().getDescricao());
+                
             } else if(saida.getStatusSaida().getLiberada().equals(trancada)) {
-                if(paciente.getItem(saida.getStatusSaida().getToken().getNome()) != null) {
-                    saida.getStatusSaida().mudarStatus(liberada, liberadaDescricao);
-                    System.out.println("Você desbloqueou esta saida... mudando de  ambiente");
-                    System.out.println();
+                //verifica se a saida informada é o portao da garagem
+                if(ambienteAtual.getSaida(direcao) instanceof PortaoGaragem){
+                    //verifica se ainda há combustivel no gerador
+                    if(gerador.haTempoDisponivel()) {
+                        //verifica se o jogador possui o token necessario para abrir a porta
+                        if(paciente.getItem(saida.getStatusSaida().getToken().getNome()) != null) {
+                            saida.getStatusSaida().mudarStatus(liberada, liberadaDescricao);
+                            System.out.println("Você desbloqueou esta saida... mudando de  ambiente.");
+                            System.out.println();
+                            System.out.println("Voce esta " + ambienteAtual.getDescricaoLonga());
+                            System.out.println();
+                            ambienteAtual = saida.getAmbiente();
+                            //verifica se o gerador está ligado
+                            //a cada movimentação entre ambientes, o gerador "consome combustivel"
+                            if(this.gerador.ligado())
+                                gerador.passarTempo();
+                        } else {
+                            System.out.println(saida.getStatusSaida().getDescricao() + " Você precisa de um(a) " + saida.getStatusSaida().getToken().getNome() + " para abrir");
+                        }
+                    }
                 } else {
-                    System.out.println(saida.getStatusSaida().getDescricao() + " Você precisa de um(a) " + saida.getStatusSaida().getToken().getNome() + " para abrir");
+                    //verifica se o jogador possui o token necessario para abrir a porta
+                    if(paciente.getItem(saida.getStatusSaida().getToken().getNome()) != null) {
+                        saida.getStatusSaida().mudarStatus(liberada, liberadaDescricao);
+                        System.out.println("Você desbloqueou esta saida... mudando de  ambiente.");
+                        System.out.println();
+                        ambienteAtual = saida.getAmbiente();
+                        System.out.println("Voce esta " + ambienteAtual.getDescricaoLonga());
+                        System.out.println();
+                    }
+                    //verifica se o gerador está ligado
+                    //a cada movimentação entre ambientes, o gerador "consome combustivel"
+                    if(this.gerador.ligado())
+                        gerador.passarTempo();
                 }
+                
+                
             }
-//            System.out.println("Voce esta " + ambienteAtual.getDescricaoLonga());
             
         } else {
             System.out.println("Direção invalida ");
@@ -327,6 +391,14 @@ public class Jogo  {
         } else {
             System.out.println("desfazer do quê?");
             System.out.println();
+        }
+    }
+    
+    private void ligarGerador(Comando comando) {
+        if(ambienteAtual.getItem(comando.getSegundaPalavra()) != null && ambienteAtual.getItem(comando.getSegundaPalavra()).getNome().equals("gerador")){
+            gerador.ligar();
+        } else {
+            System.out.println("Não existe "+ comando.getSegundaPalavra() +" neste ambiente");
         }
     }
 }

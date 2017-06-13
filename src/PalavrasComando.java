@@ -1,3 +1,5 @@
+
+
 /**
  * Esta classe eh parte da aplicacao "World of Zuul".
  * "World of Zuul" eh um jogo de aventura muito simples, baseado em texto.  
@@ -12,7 +14,7 @@
 public class PalavrasComando {
     // um vetor constante que guarda todas as palavras de comandos validas
     private static final String[] comandosValidos = {
-        "ir", "sair", "ajuda", "observar", "coletar", "desfazer", "meus-itens"
+        "ir", "sair", "ajuda", "observar", "coletar", "desfazer", "meus-itens", "ligar"
     };
 
     /**

@@ -1,3 +1,5 @@
+
+
 /**
  * Esta classe representa o Status das saidas dos ambientes
  * @author arlen
