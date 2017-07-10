@@ -1,3 +1,10 @@
+package models;
+
+
+import models.Item;
+import models.Saida;
+import models.Ambiente;
+
 
 
 /**

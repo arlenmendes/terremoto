@@ -1,3 +1,5 @@
+package models;
+
 
 
 /**
@@ -32,7 +34,7 @@ public class StatusSaida {
      * 
      * @return status da saida
      */
-    public String getLiberada() {
+    public String getStatus() {
         return this.status;
     }
     /**

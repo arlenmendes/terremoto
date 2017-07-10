@@ -1,5 +1,9 @@
+package controllers;
 
 
+
+import controllers.Comando;
+import controllers.PalavrasComando;
 import java.util.Scanner;
 
 /**
@@ -36,14 +40,11 @@ public class Analisador  {
     /**
      * @return O proximo comando do usuario
      */
-    public Comando pegarComando()  {
-        String linha;   // guardara uma linha inteira
+    public Comando pegarComando(String dados)  {
+        String linha =  dados;   // guardara uma linha inteira
         String palavra1 = null;
         String palavra2 = null;
-
-        System.out.print("> ");     // imprime o prompt
-
-        linha = entrada.nextLine();
+        
 
         // Tenta encontrar ate duas palavras na linha
         Scanner tokenizer = new Scanner(linha);
