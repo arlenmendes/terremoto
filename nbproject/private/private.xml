@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/arlen/projetos/java/Terremoto/src/Jogo.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/controllers/JogoController.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/views/JogoView.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/controllers/Jogo.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/controllers/Analisador.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/Programa.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/views/AmbienteView.java</file>
         </group>
     </open-files>
 </project-private>

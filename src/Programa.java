@@ -1,4 +1,9 @@
 
+import configuracao.Textos;
+import controllers.JogoController;
+import views.JogoView;
+
+
 
 /**
  * Classe principal do Programa. Apenas inicia o jogo.
@@ -13,8 +18,7 @@ public class Programa {
      * @param args argumentos de linha de comando (não utilizados)
      */
     public static void main(String[] args) {
-        Jogo jogo = new Jogo();
-        jogo.jogar();
+        JogoView jogoView = new JogoView(Textos.nome, Textos.textoBoasVindas);
     }
 
 }
