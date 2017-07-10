@@ -97,7 +97,7 @@ public class AmbienteController {
         recepcaoCti.setSaida("leste", new Saida(cti, liberada, null, liberadaDescricao));
         recepcaoCti.setSaida("sul", new Saida(corredor, liberada, null, liberadaDescricao));
         
-        cti.setSaida("leste", new Saida(recepcaoCti, liberada, null, liberadaDescricao));
+        cti.setSaida("oeste", new Saida(recepcaoCti, liberada, null, liberadaDescricao));
         
         salaEsperaCti.setSaida("sul", new Saida(recepcaoCti, liberada, null, liberadaDescricao));
         

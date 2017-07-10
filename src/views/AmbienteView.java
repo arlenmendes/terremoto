@@ -36,6 +36,10 @@ public class AmbienteView {
     private JPanel painelNavegacao;
     //Painel de comandos de Navegação
     // botoes das janelas;
+    private JButton btnSaidaNorte;
+    private JButton btnSaidaSul;
+    private JButton btnSaidaLeste;
+    private JButton btnSaidaOeste;
     private JButton btnExecutar;
     // ambiente atual
     private Ambiente ambiente;
@@ -68,10 +72,19 @@ public class AmbienteView {
         tpDescricaoLonga.setEditable(false);
         
         btnExecutar = new JButton("Executar");
+        btnSaidaNorte = new JButton("Saida Norte");
+        btnSaidaSul = new JButton("Saida Sul");
+        btnSaidaLeste = new JButton("Saida Leste");
+        btnSaidaOeste = new JButton("Saida Oeste");
         
         txtComando = new JTextField(20);
         txtComando.setText("");
         painelNavegacao = new JPanel(new GridLayout(8, 1));
+        painelNavegacao.add(new JLabel("Navegação por botao"));
+        painelNavegacao.add(btnSaidaNorte);
+        painelNavegacao.add(btnSaidaSul);
+        painelNavegacao.add(btnSaidaLeste);
+        painelNavegacao.add(btnSaidaOeste);
         painelNavegacao.add(new JLabel("Comandos Por Texto"));
         painelNavegacao.add(txtComando);
         painelNavegacao.add(btnExecutar);
@@ -106,6 +119,52 @@ public class AmbienteView {
                 }
             }
         });
+        // Verifica as saidas do ambiente. Caso nao existam, desabilita o botao.
+        // Caso existam, habilita ações para este botao
+        if(ambiente.getSaida("norte") != null){
+            btnSaidaNorte.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.mudarAmbiente(new Comando("ir", "norte"));
+                    mudarAmbiente();
+                }
+            });
+        } else {
+            btnSaidaNorte.setEnabled(false);
+        }
+        if(ambiente.getSaida("sul") != null){
+            btnSaidaSul.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.mudarAmbiente(new Comando("ir", "sul"));
+                    mudarAmbiente();
+                }
+            });
+        } else {
+            btnSaidaSul.setEnabled(false);
+        }
+        if(ambiente.getSaida("leste") != null){
+            btnSaidaLeste.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.mudarAmbiente(new Comando("ir", "leste"));
+                    mudarAmbiente();
+                }
+            });
+        } else {
+            btnSaidaLeste.setEnabled(false);
+        }
+        if(ambiente.getSaida("oeste") != null){
+            btnSaidaOeste.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.mudarAmbiente(new Comando("ir", "oeste"));
+                    mudarAmbiente();
+                }
+            });
+        } else {
+            btnSaidaOeste.setEnabled(false);
+        }
     }
     
     private void montarJanela() {
