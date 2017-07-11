@@ -23,7 +23,6 @@ public class JogoController {
     JogoView jogoView;
     Paciente paciente;
     Analisador analisador;
-    Jogo jogo;
     //Variavel para guardar o ambiente atual
     Ambiente ambienteAtual;
     //Controller para trabalhar os ambientes
@@ -31,7 +30,6 @@ public class JogoController {
     
     
     public JogoController() {
-        jogo = new Jogo();
         paciente = new Paciente();
         analisador = new Analisador();
         ambienteController = new AmbienteController();
