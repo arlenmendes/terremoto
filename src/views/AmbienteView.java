@@ -183,6 +183,16 @@ public class AmbienteView {
         } else {
             btnSaidaOeste.setEnabled(false);
         }
+        
+        if(jogoController.getGameOver()) {
+            btnExecutar.setEnabled(false);
+            btnSaidaLeste.setEnabled(false);
+            btnSaidaOeste.setEnabled(false);
+            btnSaidaSul.setEnabled(false);
+            btnSaidaNorte.setEnabled(false);
+            txtComando.setEditable(false);
+            tpDescricaoLonga.setText("Acabou o Jogo!!!");
+        }
     }
     
     private void montarJanela() {

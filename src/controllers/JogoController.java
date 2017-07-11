@@ -20,16 +20,18 @@ import views.JogoView;
  * @author arlen
  */
 public class JogoController {
-    JogoView jogoView;
-    Paciente paciente;
-    Analisador analisador;
+    private JogoView jogoView;
+    private Paciente paciente;
+    private Analisador analisador;
+    private boolean gameOver;
     //Variavel para guardar o ambiente atual
-    Ambiente ambienteAtual;
+    private Ambiente ambienteAtual;
     //Controller para trabalhar os ambientes
-    AmbienteController ambienteController;
+    private AmbienteController ambienteController;
     
     
     public JogoController() {
+        gameOver = false;
         paciente = new Paciente();
         analisador = new Analisador();
         ambienteController = new AmbienteController();
@@ -138,6 +140,17 @@ public class JogoController {
             default:
                 break;
         }
+        
+        if(ambienteAtual.getDescricao().equals("exterior do hospital")){
+            Alerta.mensagem("Parabéns, você conseguiu sair do Hospital\nVocê venceu!!!!!");
+        } else if(ambienteController.getGerador().ligado()){
+            if(!ambienteController.getGerador().haTempoDisponivel()) {
+                Alerta.mensagem("GAME OVER\nO gerador Acabou a Energia e você não pode mais\nsair do Hospital.");
+                gameOver = true;
+            }
+            
+                
+        }
     }
     
     private void ajuda() {
@@ -206,5 +219,9 @@ public class JogoController {
         } else {
             Alerta.mensagem("Não existe "+ comando.getSegundaPalavra() +" neste ambiente");
         }
+    }
+    
+    public boolean getGameOver() {
+        return this.gameOver;
     }
 }
