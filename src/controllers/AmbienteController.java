@@ -41,23 +41,23 @@ public class AmbienteController {
         
         
         // cria os ambientes
-        exterior = new Ambiente("exterior do hospital");
-        saguao = new Ambiente("saguao do Hospital");
-        garagem = new Ambiente("Garagem do hospital");
-        recepicaoGeral = new Ambiente("Recepição Geral do Hospital");
-        triagem = new Ambiente("triagem de pacientes do hospital");
-        corredor = new Ambiente("Coredor Geral");
-        recepcaoUti = new Ambiente("Recepição da UTI.");
-        recepcaoCti = new Ambiente("Recepição da CTI.");
-        uti = new Ambiente("Sala da UTI");
-        cti = new Ambiente("Sala da CTI");
-        salaEsperaUti = new Ambiente("Sala de espera da UTI.");
-        salaEsperaCti = new Ambiente("Sala de espera da CTI.");
-        salaFuncionarios = new Ambiente("Sala exclusiva para funcionarios.");
-        salaLimpeza = new Ambiente("Sala de limpeza.");
-        almoxerifado = new Ambiente("Almoxerifado");
-        salaSeguranca = new Ambiente("Sala da Segurança");
-        salaMaquinas = new Ambiente("Sala das maquinas do Hospital.");
+        exterior = new Ambiente("exterior do hospital", "/views/imagens/hospital.jpg");
+        saguao = new Ambiente("saguao do Hospital", "/views/imagens/hospital.jpg");
+        garagem = new Ambiente("Garagem do hospital", "/views/imagens/hospital.jpg");
+        recepicaoGeral = new Ambiente("Recepição Geral do Hospital", "/views/imagens/hospital.jpg");
+        triagem = new Ambiente("triagem de pacientes do hospital", "/views/imagens/hospital.jpg");
+        corredor = new Ambiente("Coredor Geral", "/views/imagens/hospital.jpg");
+        recepcaoUti = new Ambiente("Recepição da UTI.", "/views/imagens/hospital.jpg");
+        recepcaoCti = new Ambiente("Recepição da CTI.", "/views/imagens/hospital.jpg");
+        uti = new Ambiente("Sala da UTI", "/views/imagens/hospital.jpg");
+        cti = new Ambiente("Sala da CTI", "/views/imagens/hospital.jpg");
+        salaEsperaUti = new Ambiente("Sala de espera da UTI.", "/views/imagens/hospital.jpg");
+        salaEsperaCti = new Ambiente("Sala de espera da CTI.", "/views/imagens/hospital.jpg");
+        salaFuncionarios = new Ambiente("Sala exclusiva para funcionarios.", "/views/imagens/hospital.jpg");
+        salaLimpeza = new Ambiente("Sala de limpeza.", "/views/imagens/hospital.jpg");
+        almoxerifado = new Ambiente("Almoxerifado", "/views/imagens/hospital.jpg");
+        salaSeguranca = new Ambiente("Sala da Segurança", "/views/imagens/hospital.jpg");
+        salaMaquinas = new Ambiente("Sala das maquinas do Hospital.", "/views/imagens/hospital.jpg");
         
         
         // inicializa as saidas dos ambientes

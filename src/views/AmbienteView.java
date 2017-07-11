@@ -1,17 +1,17 @@
 package views;
 
-import controllers.Analisador;
 import controllers.Comando;
 import controllers.JogoController;
 import java.awt.BorderLayout;
-import java.awt.ComponentOrientation;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.Action;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import models.Ambiente;
 import javax.swing.JDialog;
@@ -30,6 +30,10 @@ public class AmbienteView {
     JogoController jogoController;
     // cria janela
     private JDialog janela;
+    //Imagem da janela
+    private File file;
+    private ImageIcon imagem;
+    private URL url;
     //Layout da tela
     private BorderLayout layout;
     //Painel de informações
@@ -67,6 +71,18 @@ public class AmbienteView {
     }
     
     private void criarComponentes() {
+        
+        try{
+            url = getClass().getResource(ambiente.getImagem());
+            file = new File(url.toURI());
+            
+            imagem = new ImageIcon(file.getPath());
+        } catch (URISyntaxException | NullPointerException ex){
+            Alerta.mensagem("Imagem: " + ambiente.getImagem()
+                    + " Nao encontrada");
+            
+        }
+        
         tpDescricaoLonga = new JTextPane();
         tpDescricaoLonga.setText(ambiente.getDescricaoLonga());
         tpDescricaoLonga.setEditable(false);
@@ -79,7 +95,9 @@ public class AmbienteView {
         
         txtComando = new JTextField(20);
         txtComando.setText("");
+        
         painelNavegacao = new JPanel(new GridLayout(8, 1));
+        
         painelNavegacao.add(new JLabel("Navegação por botao"));
         painelNavegacao.add(btnSaidaNorte);
         painelNavegacao.add(btnSaidaSul);
@@ -173,6 +191,7 @@ public class AmbienteView {
         janela.setLocationRelativeTo(null);
         //adicionar os componentes da tela
         janela.add(tpDescricaoLonga, BorderLayout.NORTH);
+        janela.add(new JLabel(imagem), BorderLayout.EAST);
         janela.add(painelNavegacao, BorderLayout.WEST);
         janela.setVisible(true);
     }

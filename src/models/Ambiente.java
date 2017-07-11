@@ -26,6 +26,7 @@ public class Ambiente  {
     private String descricao;
     private HashMap<String, Saida> saidas;
     private HashMap<String, Item> itens;
+    private String imagem;
 
     /**
      * Cria um ambiente com a "descricao" passada. Inicialmente, ele
@@ -33,10 +34,11 @@ public class Ambiente  {
      * "Recepção"
      * @param descricao A descricao do ambiente.
      */
-    public Ambiente(String descricao)  {
+    public Ambiente(String descricao, String imagem)  {
         this.descricao = descricao;
         saidas = new HashMap<>();
         itens = new HashMap<>();
+        this.imagem = imagem;
     }
 
     /**
@@ -130,6 +132,20 @@ public class Ambiente  {
         descricaoLonga += "\n" + getItens();
         
         return descricaoLonga;
+    }
+
+    /**
+     * @return the imagem
+     */
+    public String getImagem() {
+        return imagem;
+    }
+
+    /**
+     * @param imagem the imagem to set
+     */
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
     }
 
 }

@@ -16,7 +16,7 @@ import views.AmbienteView;
 import views.JogoView;
 
 /**
- *
+ * Classe que ira gerenciar todas as açoes do jogo.
  * @author arlen
  */
 public class JogoController {
