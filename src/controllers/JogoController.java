@@ -73,20 +73,25 @@ public class JogoController {
                 //verifica se a saida informada é o portao da garagem
                 if(ambienteAtual.getSaida(direcao) instanceof PortaoGaragem){
                     //verifica se ainda há combustivel no gerador
-                    if(ambienteController.getGerador().haTempoDisponivel()) {
-                        //verifica se o jogador possui o token necessario para abrir a porta
-                        if(paciente.getItem(saida.getStatusSaida().getToken().getNome()) != null) {
-                            saida.getStatusSaida().mudarStatus(ambienteController.getStatusLiberada(), ambienteController.getLiberadaDescricao());
-                            Alerta.mensagem("Você desbloqueu esta saida");
-                            ambienteAtual = saida.getAmbiente();
-                            //verifica se o gerador está ligado
-                            //a cada movimentação entre ambientes, o gerador "consome combustivel"
-                            if(ambienteController.getGerador().ligado())
-                                ambienteController.getGerador().passarTempo();
-                        } else {
-                            Alerta.mensagem(saida.getStatusSaida().getDescricao() + " Você precisa de um(a) " + saida.getStatusSaida().getToken().getNome() + " para abrir");
+                    if(this.ambienteController.getGerador().ligado()){
+                        if(ambienteController.getGerador().haTempoDisponivel()) {
+                            //verifica se o jogador possui o token necessario para abrir a porta
+                            if(paciente.getItem(saida.getStatusSaida().getToken().getNome()) != null) {
+                                saida.getStatusSaida().mudarStatus(ambienteController.getStatusLiberada(), ambienteController.getLiberadaDescricao());
+                                Alerta.mensagem("Você desbloqueu esta saida");
+                                ambienteAtual = saida.getAmbiente();
+                                //verifica se o gerador está ligado
+                                //a cada movimentação entre ambientes, o gerador "consome combustivel"
+                                if(ambienteController.getGerador().ligado())
+                                    ambienteController.getGerador().passarTempo();
+                            } else {
+                                Alerta.mensagem(saida.getStatusSaida().getDescricao() + " Você precisa de um(a) " + saida.getStatusSaida().getToken().getNome() + " para abrir");
+                            }
                         }
+                    } else {
+                        Alerta.mensagem("O portão não possui energia para ser aberto. Verifique o gerador!");
                     }
+                    
                 } else {
                     //verifica se o jogador possui o token necessario para abrir a porta
                     if(paciente.getItem(saida.getStatusSaida().getToken().getNome()) != null) {

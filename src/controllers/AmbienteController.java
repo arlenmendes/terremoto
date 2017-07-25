@@ -46,11 +46,11 @@ public class AmbienteController {
         garagem = new Ambiente("Garagem do hospital", "/views/imagens/hospital.jpg");
         recepicaoGeral = new Ambiente("Recepição Geral do Hospital", "/views/imagens/hospital.jpg");
         triagem = new Ambiente("triagem de pacientes do hospital", "/views/imagens/hospital.jpg");
-        corredor = new Ambiente("Coredor Geral", "/views/imagens/hospital.jpg");
+        corredor = new Ambiente("Coredor Geral", "/views/imagens/corredor.jpg");
         recepcaoUti = new Ambiente("Recepição da UTI.", "/views/imagens/hospital.jpg");
         recepcaoCti = new Ambiente("Recepição da CTI.", "/views/imagens/hospital.jpg");
-        uti = new Ambiente("Sala da UTI", "/views/imagens/hospital.jpg");
-        cti = new Ambiente("Sala da CTI", "/views/imagens/hospital.jpg");
+        uti = new Ambiente("Sala da UTI", "/views/imagens/quarto.jpg");
+        cti = new Ambiente("Sala da CTI", "/views/imagens/quarto.jpg");
         salaEsperaUti = new Ambiente("Sala de espera da UTI.", "/views/imagens/hospital.jpg");
         salaEsperaCti = new Ambiente("Sala de espera da CTI.", "/views/imagens/hospital.jpg");
         salaFuncionarios = new Ambiente("Sala exclusiva para funcionarios.", "/views/imagens/hospital.jpg");
