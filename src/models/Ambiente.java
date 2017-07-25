@@ -30,7 +30,7 @@ public class Ambiente  {
 
     /**
      * Cria um ambiente com a "descricao" passada. Inicialmente, ele
-     * nao tem saidas. "descricao" eh algo como "Sala de Espera" ou
+     * nao tem saidas e nem Itens. "descricao" eh algo como "Sala de Espera" ou
      * "Recepção"
      * @param descricao A descricao do ambiente.
      */
@@ -106,6 +106,7 @@ public class Ambiente  {
     }
     
     /**
+     * Retorna uma String com os nomes dos itens disponiveis.
      * @return Os itens disponiveis no ambiente.
      */
     public String getItens() {
@@ -117,6 +118,21 @@ public class Ambiente  {
         if(resposta.equals(""))
             return "nenhum";
         return resposta;
+    }
+    
+    /**
+     * Função que retorna uma Lista com o nome dos itens contidos no ambiente.
+     * 
+     */
+    
+    public List<String> getItensVetor() {
+        List<String> listaItens = new ArrayList<>();
+        
+        for(String key : this.itens.keySet()){
+            listaItens.add(key);
+        }
+        
+        return listaItens;
     }
     /**
      * @return A descricao complete do ambiente, com suas saidas e seus itens.
