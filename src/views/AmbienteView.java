@@ -11,6 +11,8 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import models.Ambiente;
@@ -37,8 +39,10 @@ public class AmbienteView {
     //Layout da tela
     private BorderLayout layout;
     //Painel de informações
-    private JPanel painelNavegacao;
     //Painel de comandos de Navegação
+    private JPanel painelNavegacao;
+    //painel de itens
+    private JPanel painelItens;
     // botoes das janelas Direções
     private JButton btnSaidaNorte;
     private JButton btnSaidaSul;
@@ -47,7 +51,11 @@ public class AmbienteView {
     private JButton btnExecutar;
     
     //Botoes itens
-    private JButton btnPeDeCabra;
+    private JButton btnPeDeCabraAmbiente;
+    private JButton btnBisturiAmbiente;
+    private JButton btnChaveAmbiente;
+    private JButton btnControleAmbiente;
+    private JButton btnGeradorAmbiente;
     
     // ambiente atual
     private Ambiente ambiente;
@@ -92,7 +100,7 @@ public class AmbienteView {
         }
         
         tpDescricaoLonga = new JTextPane();
-        tpDescricaoLonga.setText(ambiente.getDescricaoLonga() + "\n\nMovimentos: " + jogoController.getContador());
+        tpDescricaoLonga.setText(ambiente.getDescricao()+ "\n\nMovimentos: " + jogoController.getContador());
         tpDescricaoLonga.setEditable(false);
         
         btnExecutar = new JButton("Executar");
@@ -103,7 +111,7 @@ public class AmbienteView {
         
         txtComando = new JTextField(20);
         txtComando.setText("");
-        
+        //cria painel de Direções e adiciona os botoes
         painelNavegacao = new JPanel(new GridLayout(8, 1));
         
         painelNavegacao.add(new JLabel("Navegação por botao"));
@@ -114,7 +122,7 @@ public class AmbienteView {
         painelNavegacao.add(new JLabel("Comandos Por Texto"));
         painelNavegacao.add(txtComando);
         painelNavegacao.add(btnExecutar);
-        
+        //adiciona eventos a area para digitar os comandos
         txtComando.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -146,7 +154,19 @@ public class AmbienteView {
             }
         });
         
+        verificaItensAmbiente();
+        
         verificaDirecoes();
+        
+        //Cria o painel e adiciona seus repectivos botoes
+        painelItens = new JPanel(new GridLayout(11, 1));
+        
+        painelItens.add(new JLabel("Itens do ambiente"));
+        painelItens.add(btnPeDeCabraAmbiente);
+        painelItens.add(btnChaveAmbiente);
+        painelItens.add(btnBisturiAmbiente);
+        painelItens.add(btnControleAmbiente);
+        painelItens.add(btnGeradorAmbiente);
         
         if(jogoController.getGameOver()) {
             btnExecutar.setEnabled(false);
@@ -160,19 +180,19 @@ public class AmbienteView {
     }
     
     private void montarJanela() {
-        janela.setSize(500, 400);
+        janela.setSize(700, 400);
         janela.setLayout(new BorderLayout());
         janela.setLocationRelativeTo(null);
         //adicionar os componentes da tela
         janela.add(tpDescricaoLonga, BorderLayout.NORTH);
-        janela.add(new JLabel(imagem), BorderLayout.EAST);
+        janela.add(new JLabel(imagem), BorderLayout.CENTER);
+        janela.add(painelItens, BorderLayout.EAST);
         janela.add(painelNavegacao, BorderLayout.WEST);
     }
     
     /**
      * Atualiza os componentes da tela, quando o Paciente troca de ambiente
      */
-    
     private void mudarAmbiente() {
         ambiente = jogoController.getAmbienteAtual();
         janela.dispose();
@@ -233,6 +253,88 @@ public class AmbienteView {
             });
         } else {
             btnSaidaOeste.setEnabled(false);
+        }
+    }
+    /**
+     * Verifica os itens disponiveis no ambiente atual.
+     * Caso estejam, habilita seu determinados botões.
+     */
+    private void verificaItensAmbiente() {
+        
+        List<String> itens = ambiente.getListaItens();
+        if(itens.contains("pe-de-cabra")){
+            btnPeDeCabraAmbiente = new JButton("Pé de cabra");
+            
+            btnPeDeCabraAmbiente.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.executarComando("coletar pe-de-cabra");
+                    mudarAmbiente();
+                }
+            });
+        } else{
+            btnPeDeCabraAmbiente = new JButton("");
+            btnPeDeCabraAmbiente.setEnabled(false);
+        }
+        
+        if(itens.contains("bisturi")) {
+            btnBisturiAmbiente = new JButton("Bisturi");
+            
+            btnBisturiAmbiente.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.executarComando("coletar bisturi");
+                    mudarAmbiente();
+                }
+            });
+        } else{
+            btnBisturiAmbiente = new JButton("");
+            btnBisturiAmbiente.setEnabled(false);
+        }
+        
+        if(itens.contains("chave")) {
+            btnChaveAmbiente = new JButton("Chave");
+            
+            btnChaveAmbiente.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.executarComando("coletar chave");
+                    mudarAmbiente();
+                }
+            });
+        } else {
+            btnChaveAmbiente = new JButton("");
+            btnChaveAmbiente.setEnabled(false);
+        }
+        
+        if(itens.contains("controle-portao")) {
+            btnControleAmbiente = new JButton("Controle");
+            
+            btnControleAmbiente.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.executarComando("coletar controle-portao");
+                    mudarAmbiente();
+                }
+            });
+        } else {
+            btnControleAmbiente = new JButton("");
+            btnControleAmbiente.setVisible(false);
+        }
+        
+        if(itens.contains("gerador")) {
+            btnGeradorAmbiente = new JButton("Gerador");
+            
+            btnGeradorAmbiente.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.executarComando("ligar gerador");
+                    mudarAmbiente();
+                }
+            });
+        } else {
+            btnGeradorAmbiente = new JButton("");
+            btnGeradorAmbiente.setVisible(false);
         }
     }
 }

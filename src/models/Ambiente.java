@@ -122,10 +122,10 @@ public class Ambiente  {
     
     /**
      * Função que retorna uma Lista com o nome dos itens contidos no ambiente.
-     * 
+     * @return ArrayList de Itens
      */
     
-    public List<String> getItensVetor() {
+    public List<String> getListaItens() {
         List<String> listaItens = new ArrayList<>();
         
         for(String key : this.itens.keySet()){
@@ -134,21 +134,19 @@ public class Ambiente  {
         
         return listaItens;
     }
-    /**
-     * @return A descricao complete do ambiente, com suas saidas e seus itens.
-     */
-    public String getDescricaoLonga() {
-        
-        String descricaoLonga = "";
-        
-        descricaoLonga += this.descricao;
-        descricaoLonga += "\n" + "Este ambiente conta com saidas para: ";
-        descricaoLonga += "\n" + getSaidas();
-        descricaoLonga += "\n" + "Este ambiente conta com os seguintes itens: ";
-        descricaoLonga += "\n" + getItens();
-        
-        return descricaoLonga;
-    }
+//    /**
+//     * @return A descricao complete do ambiente, com suas saidas e seus itens.
+//     */
+//    public String getDescricaoLonga() {
+//        
+//        String descricaoLonga = "";
+//        
+//        descricaoLonga += this.descricao;
+//        descricaoLonga += "\n" + "Este ambiente conta com saidas para: ";
+//        descricaoLonga += "\n" + getSaidas();
+//        
+//        return descricaoLonga;
+//    }
 
     /**
      * @return the imagem

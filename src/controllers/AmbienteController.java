@@ -13,7 +13,7 @@ import models.Saida;
 public class AmbienteController {
     
     //cria itens
-    private Item chave, bisturi, avental, controlePortao, siringa, soro, peDeCabra;
+    private Item chave, bisturi, controlePortao, peDeCabra;
     private Gerador gerador;
     
     //status das portas
@@ -51,8 +51,8 @@ public class AmbienteController {
         recepcaoCti = new Ambiente("Recepição da CTI.", "/views/imagens/hospital.jpg");
         uti = new Ambiente("Sala da UTI", "/views/imagens/quarto.jpg");
         cti = new Ambiente("Sala da CTI", "/views/imagens/quarto.jpg");
-        salaEsperaUti = new Ambiente("Sala de espera da UTI.", "/views/imagens/hospital.jpg");
-        salaEsperaCti = new Ambiente("Sala de espera da CTI.", "/views/imagens/hospital.jpg");
+        salaEsperaUti = new Ambiente("Sala de espera da UTI.", "/views/imagens/sala.jpg");
+        salaEsperaCti = new Ambiente("Sala de espera da CTI.", "/views/imagens/sala.jpg");
         salaFuncionarios = new Ambiente("Sala exclusiva para funcionarios.", "/views/imagens/hospital.jpg");
         salaLimpeza = new Ambiente("Sala de limpeza.", "/views/imagens/hospital.jpg");
         almoxerifado = new Ambiente("Almoxerifado", "/views/imagens/hospital.jpg");
@@ -110,6 +110,7 @@ public class AmbienteController {
         salaEsperaUti.setSaida("sul", new Saida(recepcaoUti, liberada, null, liberadaDescricao));
         
         // adiciona itens aos ambientes
+        cti.setItem(bisturi.getNome(), bisturi);
         salaSeguranca.setItem(chave.getNome(), chave);
         salaSeguranca.setItem(controlePortao.getNome(), controlePortao);
         

@@ -218,8 +218,13 @@ public class JogoController {
     private void ligarGerador(Comando comando) {
         if(ambienteAtual.getItem(comando.getSegundaPalavra()) != null){
             if(ambienteAtual.getItem(comando.getSegundaPalavra()).getNome().equals(ambienteController.getGerador().getNome())){
-                ambienteController.getGerador().ligar();
-                Alerta.mensagem("Gerador ligado. Fique atento, pois se demorar muito para sair, o combustivel do gerador pode acabar.");
+                if(!ambienteController.getGerador().ligado()){
+                    ambienteController.getGerador().ligar();
+                    Alerta.mensagem("Gerador ligado. Fique atento, pois se demorar muito para sair, o combustivel do gerador pode acabar.");
+                } else {
+                    Alerta.mensagem("Gerador já esta ligado!");
+                }
+                
                 
             } else {
                 Alerta.mensagem("Este item nao contem a funcao ligar");
