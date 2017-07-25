@@ -6,6 +6,7 @@
 package controllers;
 
 import configuracao.Textos;
+import java.util.List;
 import models.Ambiente;
 import models.Item;
 import models.Paciente;
@@ -240,5 +241,9 @@ public class JogoController {
     
     public int getContador(){
         return this.contador;
+    }
+    
+    public List<String> getItensPaciente() {
+        return paciente.listaItens();
     }
 }

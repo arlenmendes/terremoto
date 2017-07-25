@@ -51,6 +51,15 @@ public class Paciente {
         return this.pesoMaximoItens - peso;
     }
     
+    public List<String> listaItens() {
+        List<String> listaItens = new ArrayList<>();
+        
+        for(String key : this.itensColetados.keySet()){
+            listaItens.add(key);
+        }
+        
+        return listaItens;
+    }
     
     /**
      * adiciona um item ao seu inventario

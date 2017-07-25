@@ -50,12 +50,17 @@ public class AmbienteView {
     private JButton btnSaidaOeste;
     private JButton btnExecutar;
     
-    //Botoes itens
+    //Botoes itens do Ambiente
     private JButton btnPeDeCabraAmbiente;
     private JButton btnBisturiAmbiente;
     private JButton btnChaveAmbiente;
     private JButton btnControleAmbiente;
     private JButton btnGeradorAmbiente;
+    //Botoes itens do Paciente
+    private JButton btnPeDeCabraPaciente;
+    private JButton btnBisturiPaciente;
+    private JButton btnChavePaciente;
+    private JButton btnControlePaciente;
     
     // ambiente atual
     private Ambiente ambiente;
@@ -122,6 +127,9 @@ public class AmbienteView {
         painelNavegacao.add(new JLabel("Comandos Por Texto"));
         painelNavegacao.add(txtComando);
         painelNavegacao.add(btnExecutar);
+        
+        verificaDirecoes();
+        
         //adiciona eventos a area para digitar os comandos
         txtComando.addKeyListener(new KeyListener() {
             @Override
@@ -154,19 +162,22 @@ public class AmbienteView {
             }
         });
         
+        
         verificaItensAmbiente();
-        
-        verificaDirecoes();
-        
+        verificaItensPaciente();
         //Cria o painel e adiciona seus repectivos botoes
         painelItens = new JPanel(new GridLayout(11, 1));
-        
         painelItens.add(new JLabel("Itens do ambiente"));
         painelItens.add(btnPeDeCabraAmbiente);
         painelItens.add(btnChaveAmbiente);
         painelItens.add(btnBisturiAmbiente);
         painelItens.add(btnControleAmbiente);
         painelItens.add(btnGeradorAmbiente);
+        painelItens.add(new JLabel("Itens do Paciente"));
+        painelItens.add(btnPeDeCabraPaciente);
+        painelItens.add(btnChavePaciente);
+        painelItens.add(btnBisturiPaciente);
+        painelItens.add(btnControlePaciente);
         
         if(jogoController.getGameOver()) {
             btnExecutar.setEnabled(false);
@@ -335,6 +346,69 @@ public class AmbienteView {
         } else {
             btnGeradorAmbiente = new JButton("");
             btnGeradorAmbiente.setVisible(false);
+        }
+    }
+    
+    private void verificaItensPaciente() {
+        List<String> itens = jogoController.getItensPaciente();
+        if(itens.contains("pe-de-cabra")){
+            btnPeDeCabraPaciente = new JButton("Pé de cabra");
+            
+            btnPeDeCabraPaciente.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.executarComando("desfazer pe-de-cabra");
+                    mudarAmbiente();
+                }
+            });
+        } else{
+            btnPeDeCabraPaciente = new JButton("");
+            btnPeDeCabraPaciente.setEnabled(false);
+        }
+        
+        if(itens.contains("bisturi")) {
+            btnBisturiPaciente = new JButton("Bisturi");
+            
+            btnBisturiPaciente.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.executarComando("desfazer bisturi");
+                    mudarAmbiente();
+                }
+            });
+        } else{
+            btnBisturiPaciente = new JButton("");
+            btnBisturiPaciente.setEnabled(false);
+        }
+        
+        if(itens.contains("chave")) {
+            btnChavePaciente = new JButton("Chave");
+            
+            btnChavePaciente.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.executarComando("desfazer chave");
+                    mudarAmbiente();
+                }
+            });
+        } else {
+            btnChavePaciente = new JButton("");
+            btnChavePaciente.setEnabled(false);
+        }
+        
+        if(itens.contains("controle-portao")) {
+            btnControlePaciente = new JButton("Controle");
+            
+            btnControlePaciente.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jogoController.executarComando("desfazer controle-portao");
+                    mudarAmbiente();
+                }
+            });
+        } else {
+            btnControlePaciente = new JButton("");
+            btnControlePaciente.setVisible(false);
         }
     }
 }

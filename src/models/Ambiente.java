@@ -134,19 +134,6 @@ public class Ambiente  {
         
         return listaItens;
     }
-//    /**
-//     * @return A descricao complete do ambiente, com suas saidas e seus itens.
-//     */
-//    public String getDescricaoLonga() {
-//        
-//        String descricaoLonga = "";
-//        
-//        descricaoLonga += this.descricao;
-//        descricaoLonga += "\n" + "Este ambiente conta com saidas para: ";
-//        descricaoLonga += "\n" + getSaidas();
-//        
-//        return descricaoLonga;
-//    }
 
     /**
      * @return the imagem
