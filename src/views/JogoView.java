@@ -63,7 +63,7 @@ public class JogoView {
     }
     
     private void montarJanela() {
-        janela.setSize(500, 150);
+        janela.setSize(500, 170);
         janela.setLayout(layout);
         janela.setLocationRelativeTo(null);
         //adicionar os componentes da tela

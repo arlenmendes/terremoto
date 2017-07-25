@@ -39,12 +39,16 @@ public class AmbienteView {
     //Painel de informações
     private JPanel painelNavegacao;
     //Painel de comandos de Navegação
-    // botoes das janelas;
+    // botoes das janelas Direções
     private JButton btnSaidaNorte;
     private JButton btnSaidaSul;
     private JButton btnSaidaLeste;
     private JButton btnSaidaOeste;
     private JButton btnExecutar;
+    
+    //Botoes itens
+    private JButton btnPeDeCabra;
+    
     // ambiente atual
     private Ambiente ambiente;
     //Labels da tela
@@ -68,8 +72,12 @@ public class AmbienteView {
         
         criarComponentes();
         montarJanela();
+        janela.setVisible(true);
     }
     
+    /**
+     * Inicia e os componentes da tela.
+     */
     private void criarComponentes() {
         
         try{
@@ -77,14 +85,14 @@ public class AmbienteView {
             file = new File(url.toURI());
             
             imagem = new ImageIcon(file.getPath());
-        } catch (URISyntaxException | NullPointerException ex){
+        } catch (URISyntaxException  ex){
             Alerta.mensagem("Imagem: " + ambiente.getImagem()
                     + " Nao encontrada");
             
         }
         
         tpDescricaoLonga = new JTextPane();
-        tpDescricaoLonga.setText(ambiente.getDescricaoLonga());
+        tpDescricaoLonga.setText(ambiente.getDescricaoLonga() + "\n\nMovimentos: " + jogoController.getContador());
         tpDescricaoLonga.setEditable(false);
         
         btnExecutar = new JButton("Executar");
@@ -137,8 +145,51 @@ public class AmbienteView {
                 }
             }
         });
-        // Verifica as saidas do ambiente. Caso nao existam, desabilita o botao.
-        // Caso existam, habilita ações para este botao
+        
+        verificaDirecoes();
+        
+        if(jogoController.getGameOver()) {
+            btnExecutar.setEnabled(false);
+            btnSaidaLeste.setEnabled(false);
+            btnSaidaOeste.setEnabled(false);
+            btnSaidaSul.setEnabled(false);
+            btnSaidaNorte.setEnabled(false);
+            txtComando.setEditable(false);
+            tpDescricaoLonga.setText("Acabou o Jogo!!!");
+        }
+    }
+    
+    private void montarJanela() {
+        janela.setSize(500, 400);
+        janela.setLayout(new BorderLayout());
+        janela.setLocationRelativeTo(null);
+        //adicionar os componentes da tela
+        janela.add(tpDescricaoLonga, BorderLayout.NORTH);
+        janela.add(new JLabel(imagem), BorderLayout.EAST);
+        janela.add(painelNavegacao, BorderLayout.WEST);
+    }
+    
+    /**
+     * Atualiza os componentes da tela, quando o Paciente troca de ambiente
+     */
+    
+    private void mudarAmbiente() {
+        ambiente = jogoController.getAmbienteAtual();
+        janela.dispose();
+        construirJanela();
+//        verificaDirecoes();
+//        criarComponentes();
+//        janela.revalidate();
+//        janela.repaint();
+        
+    }
+    /**
+     * Verifica as direções disponiveis no ambiente.
+     * Verifica as saidas do ambiente. Caso nao existam, desabilita o botao.
+     * Caso existam, habilita ações para este botao.
+     */
+    private void verificaDirecoes() {
+        
         if(ambiente.getSaida("norte") != null){
             btnSaidaNorte.addActionListener(new ActionListener() {
                 @Override
@@ -183,38 +234,5 @@ public class AmbienteView {
         } else {
             btnSaidaOeste.setEnabled(false);
         }
-        
-        if(jogoController.getGameOver()) {
-            btnExecutar.setEnabled(false);
-            btnSaidaLeste.setEnabled(false);
-            btnSaidaOeste.setEnabled(false);
-            btnSaidaSul.setEnabled(false);
-            btnSaidaNorte.setEnabled(false);
-            txtComando.setEditable(false);
-            tpDescricaoLonga.setText("Acabou o Jogo!!!");
-        }
     }
-    
-    private void montarJanela() {
-        janela.setSize(500, 400);
-        janela.setLayout(new BorderLayout());
-        janela.setLocationRelativeTo(null);
-        //adicionar os componentes da tela
-        janela.add(tpDescricaoLonga, BorderLayout.NORTH);
-        janela.add(new JLabel(imagem), BorderLayout.EAST);
-        janela.add(painelNavegacao, BorderLayout.WEST);
-        janela.setVisible(true);
-    }
-    
-    /**
-     * Atualiza os componentes da tela, quando o Paciente troca de ambiente
-     */
-    
-    private void mudarAmbiente() {
-        ambiente = jogoController.getAmbienteAtual();
-        janela.dispose();
-        construirJanela();
-    }
-    
-    
 }

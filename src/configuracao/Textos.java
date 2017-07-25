@@ -12,5 +12,6 @@ public class Textos {
             + "O jogo consiste em que você é um paciente que estava na UTI do hospital. "
             + "Mas enquanto você estava desacordado, ocorreu um terremoto e toda a cidade foi evacuada. "
             + "Você precisa agora, conseguir sair do hospital. "
-            + "Boa sorte.";
+            + "Boa sorte."
+            + "\n\n Tente finalizar o jogo com o mínimo de movimentos possiveis.";
 }

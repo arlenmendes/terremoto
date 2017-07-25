@@ -36,8 +36,8 @@ public class Ambiente  {
      */
     public Ambiente(String descricao, String imagem)  {
         this.descricao = descricao;
-        saidas = new HashMap<>();
-        itens = new HashMap<>();
+        saidas = new HashMap<String, Saida>();
+        itens = new HashMap<String, Item>();
         this.imagem = imagem;
     }
 

@@ -24,6 +24,7 @@ public class JogoController {
     private Paciente paciente;
     private Analisador analisador;
     private boolean gameOver;
+    private int contador;
     //Variavel para guardar o ambiente atual
     private Ambiente ambienteAtual;
     //Controller para trabalhar os ambientes
@@ -31,6 +32,7 @@ public class JogoController {
     
     
     public JogoController() {
+        contador = 0;
         gameOver = false;
         paciente = new Paciente();
         analisador = new Analisador();
@@ -62,6 +64,7 @@ public class JogoController {
                 if(ambienteController.getGerador().ligado())
                     ambienteController.getGerador().passarTempo();
                 ambienteAtual = saida.getAmbiente();
+                this.contador++;
             } else if(saida.getStatusSaida().getStatus().equals(ambienteController.getStatusObstruida())) {
                 
                 Alerta.mensagem("Ops! Você não pode passar por aqui " + saida.getStatusSaida().getDescricao());
@@ -142,7 +145,7 @@ public class JogoController {
         }
         
         if(ambienteAtual.getDescricao().equals("exterior do hospital")){
-            Alerta.mensagem("Parabéns, você conseguiu sair do Hospital\nVocê venceu!!!!!");
+            Alerta.mensagem("Parabéns, você conseguiu sair do Hospital\nVocê venceu!!!!!\n\n Sua pontuação foi: " + this.getContador());
         } else if(ambienteController.getGerador().ligado()){
             if(!ambienteController.getGerador().haTempoDisponivel()) {
                 Alerta.mensagem("GAME OVER\nO gerador Acabou a Energia e você não pode mais\nsair do Hospital.");
@@ -217,11 +220,15 @@ public class JogoController {
                 Alerta.mensagem("Este item nao contem a funcao ligar");
             }
         } else {
-            Alerta.mensagem("Não existe "+ comando.getSegundaPalavra() +" neste ambiente");
+            Alerta.mensagem("Ligar o que???");
         }
     }
     
     public boolean getGameOver() {
         return this.gameOver;
+    }
+    
+    public int getContador(){
+        return this.contador;
     }
 }

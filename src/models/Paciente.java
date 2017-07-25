@@ -17,7 +17,7 @@ public class Paciente {
     private int pesoMaximoItens;
     
     public Paciente() {
-        itensColetados = new HashMap<>();
+        itensColetados = new HashMap<String, Item>();
         pesoMaximoItens = 6;
     }
     /**
