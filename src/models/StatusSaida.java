@@ -26,6 +26,10 @@ public class StatusSaida {
         return this.token;
     }
     
+    /**
+     * @return descrição da saida
+     */
+    
     public String getDescricao() {
         return this.descricao;
     }

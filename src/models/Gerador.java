@@ -36,6 +36,10 @@ public class Gerador extends Item {
         return this.ligado;
     }
     
+    /**
+     * Função que passa o tempo do gerador ligado.
+     */
+    
     public void passarTempo() {
         this.tempoLigado++;
     }

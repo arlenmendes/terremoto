@@ -189,7 +189,9 @@ public class AmbienteView {
             tpDescricaoLonga.setText("Acabou o Jogo!!!");
         }
     }
-    
+    /**
+     * Dipoe os componentes na janela do jogo.
+     */
     private void montarJanela() {
         janela.setSize(700, 400);
         janela.setLayout(new BorderLayout());

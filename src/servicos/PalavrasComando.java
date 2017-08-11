@@ -43,6 +43,11 @@ public class PalavrasComando {
         return false;
     }
     
+    /**
+     * Retorna um vetor com os comandos válidos e aceitos pelo sistema do jogo.
+     * @return Vetor de Strings
+     */
+    
     public String[] comandos() {
         return this.comandosValidos;
     }

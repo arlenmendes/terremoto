@@ -45,7 +45,9 @@ public class JogoView {
         criarComponentes();
         montarJanela();
     }
-    
+    /**
+     * Inicializa os componentes das telas
+     */
     public void criarComponentes() {
         layout = new BorderLayout();
         btnJogar = new JButton("Iniciar");
@@ -61,7 +63,9 @@ public class JogoView {
             }
         });
     }
-    
+    /**
+     * Dispoe os componentes na tela
+     */
     private void montarJanela() {
         janela.setSize(500, 170);
         janela.setLayout(layout);

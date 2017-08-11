@@ -66,6 +66,10 @@ public class Analisador  {
         }
     }
     
+    /**
+     * @retorn string com os comandos disponíveis
+     */
+    
     public String[] comandosDisponiveis() {
         return palavrasDeComando.comandos();
     }

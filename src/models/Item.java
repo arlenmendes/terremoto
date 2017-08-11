@@ -6,7 +6,7 @@ package models;
 
 /**
  * Essa é a classe dos itens do nosso jogo.
- * Nesta classe, descrevemos itens que estaram disponiveis nos ambientes para o
+ * Nesta classe, descrevemos itens que estarão disponiveis nos ambientes para o
  * personagem interagir.
  * @author arlen
  */

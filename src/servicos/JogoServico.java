@@ -31,7 +31,10 @@ public class JogoServico {
     //Controller para trabalhar os ambientes
     private AmbienteServico ambienteController;
     
-    
+    /**
+     * Metodo construtor da classe.
+     * Inicia todos os dados que serão utilizados nas iterações com o jogador.
+     */
     public JogoServico() {
         contador = 0;
         gameOver = false;
@@ -41,10 +44,17 @@ public class JogoServico {
         ambienteAtual = ambienteController.prepararAmbientes();
     }
     
+    /**
+     * @return o ambiente atual do jogo.
+     */
+    
     public Ambiente getAmbienteAtual() {
         return this.ambienteAtual;
     }
-    
+    /**
+     * Realiza todas as verificações necessárias para que possa realizar, ou não,
+     * a mudança de ambiente. Umas da pricipais funções do jogo.
+     */
     public void mudarAmbiente(Comando comando) {
         if(!comando.temSegundaPalavra()) {
             // se nao ha segunda palavra, nao sabemos pra onde ir...
@@ -115,11 +125,19 @@ public class JogoServico {
         }
     }
     
+    /**
+     * Executa os comandos passados pela interface.
+     */
+    
     public void executarComando(String dados) {
         Comando comando = analisador.pegarComando(dados);
         processarComando(comando);
     }
     
+    /**
+     * @param Comando.
+     * Processa o comando passado.
+     */
     private void processarComando(Comando comando) {
         if(comando.ehDesconhecido()) {
             Alerta.mensagem("Eu nao entendi o que voce disse...");
@@ -162,6 +180,10 @@ public class JogoServico {
         }
     }
     
+    /**
+     * Dá uma breve descrição do que está acontecendo no jogo.
+     * Também informa os comandos disponíveis para o usuário.
+     */
     private void ajuda() {
         Alerta.mensagem("Você está em um hospital. Você precisa encontrar uma maneira de sair.");
         String comandos = "Comandos disponíveis: \n";
@@ -235,13 +257,27 @@ public class JogoServico {
         }
     }
     
+    /**
+     * Verifica se o jogo acabou.
+     * @return Boolean para informar se o jogo acabou
+     */
     public boolean getGameOver() {
         return this.gameOver;
     }
     
+    /**
+     * Retorna o contador que indica o número de movimentos realizados.
+     */
+    
     public int getContador(){
         return this.contador;
     }
+    
+    /**
+     * Retorna uma lista de strings com os itens contidos no invetário do jogador.
+     * @return Lista de Itens.
+     * 
+     */
     
     public List<String> getItensPaciente() {
         return paciente.listaItens();

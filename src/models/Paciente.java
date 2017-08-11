@@ -13,7 +13,10 @@ import java.util.List;
  * @author arlen
  */
 public class Paciente {
+    //Hash que representa os itens coletados pelo jogador
     private HashMap<String, Item> itensColetados;
+    //capacidade máxima do jogador. Isso indica quanto, em peso, ele pode
+    // carregar de itens.
     private int pesoMaximoItens;
     
     public Paciente() {
