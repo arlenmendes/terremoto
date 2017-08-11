@@ -81,6 +81,7 @@ public class AmbienteView {
     }
     
     private void construirJanela() {
+        
         janela = new JDialog();
         
         criarComponentes();
@@ -162,7 +163,7 @@ public class AmbienteView {
             }
         });
         
-        
+        //veirifica os itens no ambiente atual e no intenvário do paciente
         verificaItensAmbiente();
         verificaItensPaciente();
         //Cria o painel e adiciona seus repectivos botoes
@@ -207,9 +208,12 @@ public class AmbienteView {
      * Atualiza os componentes da tela, quando o Paciente troca de ambiente
      */
     private void mudarAmbiente() {
+        
         ambiente = jogoController.getAmbienteAtual();
         janela.dispose();
         construirJanela();
+        if(jogoController.getGameOver())
+            janela.dispose();
 //        verificaDirecoes();
 //        criarComponentes();
 //        janela.revalidate();
@@ -270,13 +274,13 @@ public class AmbienteView {
     }
     /**
      * Verifica os itens disponiveis no ambiente atual.
-     * Caso estejam, habilita seu determinados botões.
+     * Caso estejam, habilita seu determinado botão.
      */
     private void verificaItensAmbiente() {
         
         List<String> itens = ambiente.getListaItens();
         if(itens.contains("pe-de-cabra")){
-            btnPeDeCabraAmbiente = new JButton("Pé de cabra");
+            btnPeDeCabraAmbiente = new JButton("pe-de-cabra");
             
             btnPeDeCabraAmbiente.addActionListener(new ActionListener() {
                 @Override
@@ -291,7 +295,7 @@ public class AmbienteView {
         }
         
         if(itens.contains("bisturi")) {
-            btnBisturiAmbiente = new JButton("Bisturi");
+            btnBisturiAmbiente = new JButton("bisturi");
             
             btnBisturiAmbiente.addActionListener(new ActionListener() {
                 @Override
@@ -306,7 +310,7 @@ public class AmbienteView {
         }
         
         if(itens.contains("chave")) {
-            btnChaveAmbiente = new JButton("Chave");
+            btnChaveAmbiente = new JButton("chave");
             
             btnChaveAmbiente.addActionListener(new ActionListener() {
                 @Override
@@ -321,7 +325,7 @@ public class AmbienteView {
         }
         
         if(itens.contains("controle-portao")) {
-            btnControleAmbiente = new JButton("Controle");
+            btnControleAmbiente = new JButton("controle-portao");
             
             btnControleAmbiente.addActionListener(new ActionListener() {
                 @Override
@@ -336,7 +340,7 @@ public class AmbienteView {
         }
         
         if(itens.contains("gerador")) {
-            btnGeradorAmbiente = new JButton("Gerador");
+            btnGeradorAmbiente = new JButton("gerador");
             
             btnGeradorAmbiente.addActionListener(new ActionListener() {
                 @Override
@@ -350,11 +354,14 @@ public class AmbienteView {
             btnGeradorAmbiente.setVisible(false);
         }
     }
-    
+    /**
+     * Verifica os itens disponiveis no inventário do paciente.
+     * Caso haja algum item disponivel, habilita seu determinado botão.
+     */
     private void verificaItensPaciente() {
         List<String> itens = jogoController.getItensPaciente();
         if(itens.contains("pe-de-cabra")){
-            btnPeDeCabraPaciente = new JButton("Pé de cabra");
+            btnPeDeCabraPaciente = new JButton("pe-de-cabra");
             
             btnPeDeCabraPaciente.addActionListener(new ActionListener() {
                 @Override
@@ -369,7 +376,7 @@ public class AmbienteView {
         }
         
         if(itens.contains("bisturi")) {
-            btnBisturiPaciente = new JButton("Bisturi");
+            btnBisturiPaciente = new JButton("bisturi");
             
             btnBisturiPaciente.addActionListener(new ActionListener() {
                 @Override
@@ -384,7 +391,7 @@ public class AmbienteView {
         }
         
         if(itens.contains("chave")) {
-            btnChavePaciente = new JButton("Chave");
+            btnChavePaciente = new JButton("chave");
             
             btnChavePaciente.addActionListener(new ActionListener() {
                 @Override
@@ -399,7 +406,7 @@ public class AmbienteView {
         }
         
         if(itens.contains("controle-portao")) {
-            btnControlePaciente = new JButton("Controle");
+            btnControlePaciente = new JButton("controle-portao");
             
             btnControlePaciente.addActionListener(new ActionListener() {
                 @Override

@@ -41,7 +41,7 @@ public class JogoServico {
         paciente = new Paciente();
         analisador = new Analisador();
         ambienteController = new AmbienteServico();
-        ambienteAtual = ambienteController.prepararAmbientes();
+        ambienteAtual = ambienteController.prepararAmbientes(paciente);
     }
     
     /**
@@ -81,43 +81,21 @@ public class JogoServico {
                 Alerta.mensagem("Ops! Você não pode passar por aqui " + saida.getDescricaoStatusSaida());
                 
             } else if(saida.getStatusSaida().equals(ambienteController.getStatusTrancada())) {
-                //verifica se a saida informada é o portao da garagem
-                if(ambienteAtual.getSaida(direcao) instanceof PortaoGaragem){
-                    //verifica se ainda há combustivel no gerador
-                    if(this.ambienteController.getGerador().ligado()){
-                        if(ambienteController.getGerador().haTempoDisponivel()) {
-                            //verifica se o jogador possui o token necessario para abrir a porta
-                            if(paciente.getItem(saida.getNomeToken()) != null) {
-                                saida.mudarStatusDaSaida(ambienteController.getStatusLiberada(), ambienteController.getLiberadaDescricao());
-                                Alerta.mensagem("Você desbloqueu esta saida");
-                                ambienteAtual = saida.getAmbiente();
-                                //verifica se o gerador está ligado
-                                //a cada movimentação entre ambientes, o gerador "consome combustivel"
-                                if(ambienteController.getGerador().ligado())
-                                    ambienteController.getGerador().passarTempo();
-                            } else {
-                                Alerta.mensagem(saida.getDescricaoStatusSaida() + ". Você precisa de um(a) " + saida.getNomeToken() + " para abrir");
-                            }
-                        }
-                    } else {
-                        Alerta.mensagem("O portão não possui energia para ser aberto. Verifique o gerador!");
-                    }
-                    
+                //verifica se o jogador possui o token necessario para abrir a porta
+                if(saida.liberarSaida(paciente.getItem(saida.getNomeToken()))) {
+                    saida.mudarStatusDaSaida(ambienteController.getStatusLiberada(), ambienteController.getLiberadaDescricao());
+                    Alerta.mensagem("Você desbloqueou esta saida... mudando de  ambiente.");
+                    ambienteAtual = saida.getAmbiente();
+
+                    //verifica se o gerador está ligado
+                    //a cada movimentação entre ambientes, o gerador "consome combustivel"
+                    if(ambienteController.getGerador().ligado())
+                        ambienteController.getGerador().passarTempo();
+                    this.contador++;
                 } else {
-                    //verifica se o jogador possui o token necessario para abrir a porta
-                    if(paciente.getItem(saida.getNomeToken()) != null) {
-                        saida.mudarStatusDaSaida(ambienteController.getStatusLiberada(), ambienteController.getLiberadaDescricao());
-                        Alerta.mensagem("Você desbloqueou esta saida... mudando de  ambiente.");
-                        ambienteAtual = saida.getAmbiente();
-                        
-                        //verifica se o gerador está ligado
-                        //a cada movimentação entre ambientes, o gerador "consome combustivel"
-                        if(ambienteController.getGerador().ligado())
-                            ambienteController.getGerador().passarTempo();
-                    } else {
-                        Alerta.mensagem("Porta emperrada. Você precisa de " + saida.getNomeToken() + " para abrir.");
-                    }
+                    Alerta.mensagem("Porta trancada. Você precisa do(s) item(ns)  " + saida.getNomeToken() + " para abrir.");
                 }
+                
             }
             
         } else {
@@ -163,6 +141,11 @@ public class JogoServico {
                 break;
             case "ligar":
                 ligarGerador(comando);
+                System.out.println(ambienteController.getGerador().ligado());
+                break;
+            case "sair":
+                this.gameOver = true;
+                Alerta.mensagem("O jogo será encerrado!!");
                 break;
             default:
                 break;
@@ -172,7 +155,7 @@ public class JogoServico {
             Alerta.mensagem("Parabéns, você conseguiu sair do Hospital\nVocê venceu!!!!!\n\n Sua pontuação foi: " + this.getContador());
         } else if(ambienteController.getGerador().ligado()){
             if(!ambienteController.getGerador().haTempoDisponivel()) {
-                Alerta.mensagem("GAME OVER\nO gerador Acabou a Energia e você não pode mais\nsair do Hospital.");
+                Alerta.mensagem("FIM DO JOGO!! \nO gerador Acabou a Energia e você não pode mais\nsair do Hospital.");
                 gameOver = true;
             }
             

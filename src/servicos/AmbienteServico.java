@@ -3,6 +3,7 @@ package servicos;
 import models.Ambiente;
 import models.Gerador;
 import models.Item;
+import models.Paciente;
 import models.PortaoGaragem;
 import models.Saida;
 
@@ -27,9 +28,10 @@ public class AmbienteServico {
     private final String obstruidaDescricao = "Porta Obstruida Por Destroços Do Predio.";
     /**
      * Prepara os ambientes, com suas saidas e seus itens, e retorna o ambiente inicial.
-     * @return Ambiente
+     * @param paciente do jogo
+     * @return Ambiente atual
      */
-    public Ambiente prepararAmbientes() {
+    public Ambiente prepararAmbientes(Paciente paciente) {
         Ambiente exterior, saguao, garagem, recepicaoGeral, triagem, corredor, recepcaoUti, uti, salaEsperaUti, recepcaoCti, cti, salaEsperaCti, salaFuncionarios, salaLimpeza, almoxerifado, salaSeguranca, salaMaquinas;
         
         //cria itens
@@ -69,7 +71,7 @@ public class AmbienteServico {
         recepicaoGeral.setSaida("norte", new Saida(triagem, liberada, null, liberadaDescricao));
         
         garagem.setSaida("leste", new Saida(recepicaoGeral, trancada, chave, trancadaDescricao));
-        garagem.setSaida("oeste", new PortaoGaragem(exterior, trancada, controlePortao, trancadaDescricao));
+        garagem.setSaida("oeste", new PortaoGaragem(exterior, trancada, controlePortao, trancadaDescricao,  gerador, paciente));
         
         triagem.setSaida("sul", new Saida(recepicaoGeral, liberada, null, liberadaDescricao));
         triagem.setSaida("norte", new Saida(corredor, liberada, null, liberadaDescricao));

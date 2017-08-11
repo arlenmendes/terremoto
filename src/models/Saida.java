@@ -11,7 +11,7 @@ import models.Ambiente;
  */
 public class Saida {
     private Ambiente ambiente;
-    private StatusSaida status;
+    protected StatusSaida status;
     
     public Saida(Ambiente ambiente, String status, Item token, String descricao) {
         this.ambiente = ambiente;
@@ -53,5 +53,13 @@ public class Saida {
      */
     public String getNomeToken() {
         return this.status.getToken().getNome();
+    }
+    
+    public boolean liberarSaida(Item item){
+        if(item != null)
+            if(item == this.status.getToken())
+                return true;
+        return false;
+        
     }
 }

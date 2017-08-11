@@ -13,7 +13,7 @@ public class Gerador extends Item {
     
     private boolean ligado;
     
-    private int tempoLigado = 0;
+    private int tempoLigado;
     private int maximoTempoLigado = 6;
     
     public Gerador(String nome, String descricao, int peso) {
@@ -25,6 +25,7 @@ public class Gerador extends Item {
      * Funcão que liga o gerador
      */
     public void ligar() {
+        this.tempoLigado = 0;
         this.ligado = true;
     }
     
