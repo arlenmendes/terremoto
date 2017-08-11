@@ -29,11 +29,29 @@ public class Saida {
      * 
      * @return status da saida
      */
-    public StatusSaida getStatusSaida() {
-        return this.status;
+    public String getStatusSaida() {
+        return this.status.getStatus();
     }
     
-    public void abrir() {
-        
+    /**
+     * @return Descrição do Status da Saida
+     */
+    
+    public String getDescricaoStatusSaida() {
+        return this.status.getDescricao();
+    }
+    /**
+     * Esta função muda os dados do status da saida do ambiente.
+     * @param status
+     * @param descricao
+     */
+    public void mudarStatusDaSaida(String status, String descricao) {
+        this.status.mudarStatus(status, descricao);
+    }
+    /**
+     * @return nome do token que libera esta saida
+     */
+    public String getNomeToken() {
+        return this.status.getToken().getNome();
     }
 }

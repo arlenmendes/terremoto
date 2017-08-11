@@ -59,26 +59,26 @@ public class JogoServico {
         //verifica se a direção informada existe
         if(saida != null){
             //verifica se a saida esta liberada, obstruida ou trancada
-            if(saida.getStatusSaida().getStatus().equals(ambienteController.getStatusLiberada())){
+            if(saida.getStatusSaida().equals(ambienteController.getStatusLiberada())){
                 //verifica se o gerador está ligado
                 //a cada movimentação entre ambientes, o gerador "consome combustivel"
                 if(ambienteController.getGerador().ligado())
                     ambienteController.getGerador().passarTempo();
                 ambienteAtual = saida.getAmbiente();
                 this.contador++;
-            } else if(saida.getStatusSaida().getStatus().equals(ambienteController.getStatusObstruida())) {
+            } else if(saida.getStatusSaida().equals(ambienteController.getStatusObstruida())) {
                 
-                Alerta.mensagem("Ops! Você não pode passar por aqui " + saida.getStatusSaida().getDescricao());
+                Alerta.mensagem("Ops! Você não pode passar por aqui " + saida.getDescricaoStatusSaida());
                 
-            } else if(saida.getStatusSaida().getStatus().equals(ambienteController.getStatusTrancada())) {
+            } else if(saida.getStatusSaida().equals(ambienteController.getStatusTrancada())) {
                 //verifica se a saida informada é o portao da garagem
                 if(ambienteAtual.getSaida(direcao) instanceof PortaoGaragem){
                     //verifica se ainda há combustivel no gerador
                     if(this.ambienteController.getGerador().ligado()){
                         if(ambienteController.getGerador().haTempoDisponivel()) {
                             //verifica se o jogador possui o token necessario para abrir a porta
-                            if(paciente.getItem(saida.getStatusSaida().getToken().getNome()) != null) {
-                                saida.getStatusSaida().mudarStatus(ambienteController.getStatusLiberada(), ambienteController.getLiberadaDescricao());
+                            if(paciente.getItem(saida.getNomeToken()) != null) {
+                                saida.mudarStatusDaSaida(ambienteController.getStatusLiberada(), ambienteController.getLiberadaDescricao());
                                 Alerta.mensagem("Você desbloqueu esta saida");
                                 ambienteAtual = saida.getAmbiente();
                                 //verifica se o gerador está ligado
@@ -86,7 +86,7 @@ public class JogoServico {
                                 if(ambienteController.getGerador().ligado())
                                     ambienteController.getGerador().passarTempo();
                             } else {
-                                Alerta.mensagem(saida.getStatusSaida().getDescricao() + " Você precisa de um(a) " + saida.getStatusSaida().getToken().getNome() + " para abrir");
+                                Alerta.mensagem(saida.getDescricaoStatusSaida() + ". Você precisa de um(a) " + saida.getNomeToken() + " para abrir");
                             }
                         }
                     } else {
@@ -95,8 +95,8 @@ public class JogoServico {
                     
                 } else {
                     //verifica se o jogador possui o token necessario para abrir a porta
-                    if(paciente.getItem(saida.getStatusSaida().getToken().getNome()) != null) {
-                        saida.getStatusSaida().mudarStatus(ambienteController.getStatusLiberada(), ambienteController.getLiberadaDescricao());
+                    if(paciente.getItem(saida.getNomeToken()) != null) {
+                        saida.mudarStatusDaSaida(ambienteController.getStatusLiberada(), ambienteController.getLiberadaDescricao());
                         Alerta.mensagem("Você desbloqueou esta saida... mudando de  ambiente.");
                         ambienteAtual = saida.getAmbiente();
                         
@@ -105,7 +105,7 @@ public class JogoServico {
                         if(ambienteController.getGerador().ligado())
                             ambienteController.getGerador().passarTempo();
                     } else {
-                        Alerta.mensagem("Porta emperrada. Você precisa de " + saida.getStatusSaida().getToken().getNome() + " para abrir.");
+                        Alerta.mensagem("Porta emperrada. Você precisa de " + saida.getNomeToken() + " para abrir.");
                     }
                 }
             }
