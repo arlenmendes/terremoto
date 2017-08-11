@@ -16,8 +16,7 @@ import java.util.List;
  * Um "Ambiente" representa uma localizacao no cenario do jogo. Ele eh
  * conectado aos outros ambientes atraves de saidas. As saidas sao
  * nomeadas como norte, sul, leste e oeste. Para cada direcao, o ambiente
- * guarda uma referencia para o ambiente vizinho, ou null se nao ha
- * saida naquela direcao.
+ * guarda uma referencia para o ambiente vizinho.
  * 
  * @author  Arlen Mendes
  * @version 2011.07.31 (2017.05.16)
@@ -29,8 +28,9 @@ public class Ambiente  {
     private String imagem;
 
     /**
-     * Cria um ambiente com a "descricao" passada. Inicialmente, ele
-     * nao tem saidas e nem Itens. "descricao" eh algo como "Sala de Espera" ou
+     * Cria um ambiente com a "descricao" passada e o caminho da imagem que 
+     * será mostrada para o usuário. Inicialmente, ele nao tem saidas e nem
+     * Itens. "descricao" eh algo como "Sala de Espera" ou
      * "Recepção"
      * @param descricao A descricao do ambiente.
      */
