@@ -56,8 +56,8 @@ public class Ambiente  {
      * @param nome informa o nome do item
      * @param item a ser adicionado ao ambiente
      */
-    public void adicionarItem(String nome, Item item) {
-        itens.put(nome, item);
+    public void adicionarItem(Item item) {
+        itens.put(item.getNome(), item);
     }
     /**
      * Buscao item pelo nome.

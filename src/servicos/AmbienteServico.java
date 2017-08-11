@@ -110,13 +110,13 @@ public class AmbienteServico {
         salaEsperaUti.setSaida("sul", new Saida(recepcaoUti, liberada, null, liberadaDescricao));
         
         // adiciona itens aos ambientes
-        cti.adicionarItem(bisturi.getNome(), bisturi);
-        salaSeguranca.adicionarItem(chave.getNome(), chave);
-        salaSeguranca.adicionarItem(controlePortao.getNome(), controlePortao);
+        cti.adicionarItem(bisturi);
+        salaSeguranca.adicionarItem(chave);
+        salaSeguranca.adicionarItem(controlePortao);
         
-        almoxerifado.adicionarItem(peDeCabra.getNome(), peDeCabra);
+        almoxerifado.adicionarItem(peDeCabra);
         
-        salaMaquinas.adicionarItem(gerador.getNome(), gerador);
+        salaMaquinas.adicionarItem(gerador);
         
 
         return uti;  // o jogo comeca na uti

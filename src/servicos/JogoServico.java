@@ -203,7 +203,7 @@ public class JogoServico {
             Item item = paciente.getItem(comando.getSegundaPalavra());
             if(item != null){
                 paciente.removeItem(comando.getSegundaPalavra());
-                ambienteAtual.adicionarItem(item.getNome(), item);
+                ambienteAtual.adicionarItem(item);
                 Alerta.mensagem("Item deixado no ambiente");
             } else {
                 Alerta.mensagem("Você nao tem este item em seu inventario");
