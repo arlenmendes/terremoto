@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="Terremoto">
+  <ClassDiagramComponents>
+    <Class name="JogoServico" package="servicos" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="jogoView" type="JogoView" visibility="private"/>
+        <Field name="paciente" type="Paciente" visibility="private"/>
+        <Field name="analisador" type="Analisador" visibility="private"/>
+        <Field name="gameOver" type="boolean" visibility="private"/>
+        <Field name="contador" type="int" visibility="private"/>
+        <Field name="ambienteAtual" type="Ambiente" visibility="private"/>
+        <Field name="ambienteController" type="AmbienteServico" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getAmbienteAtual" returnType="Ambiente" visibility="public"/>
+        <Method name="mudarAmbiente" returnType="void" visibility="public">
+          <Argument type="Comando" name="comando"/>
+        </Method>
+        <Method name="executarComando" returnType="void" visibility="public">
+          <Argument type="String" name="dados"/>
+        </Method>
+        <Method name="processarComando" returnType="void" visibility="private">
+          <Argument type="Comando" name="comando"/>
+        </Method>
+        <Method name="ajuda" returnType="void" visibility="private"/>
+        <Method name="coletarItem" returnType="void" visibility="private">
+          <Argument type="Comando" name="comando"/>
+        </Method>
+        <Method name="desfazerItem" returnType="void" visibility="private">
+          <Argument type="Comando" name="comando"/>
+        </Method>
+        <Method name="ligarGerador" returnType="void" visibility="private">
+          <Argument type="Comando" name="comando"/>
+        </Method>
+        <Method name="getGameOver" returnType="boolean" visibility="public"/>
+        <Method name="getContador" returnType="int" visibility="public"/>
+        <Method name="getItensPaciente" returnType="List&lt;String&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="PalavrasComando" package="servicos" visibility="public" xPosition="320.0" yPosition="20.0">
+      <Fields>
+        <Field name="comandosValidos" type="String[]" visibility="private" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="ehComando" returnType="boolean" visibility="public">
+          <Argument type="String" name="umaString"/>
+        </Method>
+        <Method name="comandos" returnType="String[]" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Comando" package="servicos" visibility="public" xPosition="620.0" yPosition="20.0">
+      <Fields>
+        <Field name="palavraDeComando" type="String" visibility="private"/>
+        <Field name="segundaPalavra" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="primeiraPalavra"/>
+          <Argument type="String" name="segundaPalavra"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getPalavraDeComando" returnType="String" visibility="public"/>
+        <Method name="getSegundaPalavra" returnType="String" visibility="public"/>
+        <Method name="ehDesconhecido" returnType="boolean" visibility="public"/>
+        <Method name="temSegundaPalavra" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="AmbienteServico" package="servicos" visibility="public" xPosition="920.0" yPosition="20.0">
+      <Fields>
+        <Field name="chave" type="Item" visibility="private"/>
+        <Field name="gerador" type="Gerador" visibility="private"/>
+        <Field name="liberada" type="String" visibility="private" isFinal="true"/>
+        <Field name="trancada" type="String" visibility="private" isFinal="true"/>
+        <Field name="obstruida" type="String" visibility="private" isFinal="true"/>
+        <Field name="liberadaDescricao" type="String" visibility="private" isFinal="true"/>
+        <Field name="trancadaDescricao" type="String" visibility="private" isFinal="true"/>
+        <Field name="obstruidaDescricao" type="String" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="prepararAmbientes" returnType="Ambiente" visibility="public">
+          <Argument type="Paciente" name="paciente"/>
+        </Method>
+        <Method name="getGerador" returnType="Gerador" visibility="public"/>
+        <Method name="ligarGerador" returnType="void" visibility="public"/>
+        <Method name="getStatusObstruida" returnType="String" visibility="public"/>
+        <Method name="getStatusLiberada" returnType="String" visibility="public"/>
+        <Method name="getStatusTrancada" returnType="String" visibility="public"/>
+        <Method name="getLiberadaDescricao" returnType="String" visibility="public"/>
+        <Method name="getObstruidaDescricao" returnType="String" visibility="public"/>
+        <Method name="getTrancadaDescricao" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Analisador" package="servicos" visibility="public" xPosition="1220.0" yPosition="20.0">
+      <Fields>
+        <Field name="palavrasDeComando" type="PalavrasComando" visibility="private"/>
+        <Field name="entrada" type="Scanner" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="pegarComando" returnType="Comando" visibility="public">
+          <Argument type="String" name="dados"/>
+        </Method>
+        <Method name="comandosDisponiveis" returnType="String[]" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Textos" package="configuracao" visibility="public" xPosition="1520.0" yPosition="20.0">
+      <Fields>
+        <Field name="nome" type="String" visibility="public" isStatic="true"/>
+        <Field name="textoBoasVindas" type="String" visibility="public" isStatic="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods/>
+    </Class>
+    <Class name="Programa" package="" visibility="public" xPosition="1820.0" yPosition="20.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Paciente" package="models" visibility="public" xPosition="2120.0" yPosition="20.0">
+      <Fields>
+        <Field name="itensColetados" type="HashMap&lt;String, Item&gt;" visibility="private"/>
+        <Field name="pesoMaximoItens" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="getItem" returnType="Item" visibility="public">
+          <Argument type="String" name="nome"/>
+        </Method>
+        <Method name="ListarMeusItens" returnType="String" visibility="public"/>
+        <Method name="pesoItemDisponivel" returnType="int" visibility="public"/>
+        <Method name="listaItens" returnType="List&lt;String&gt;" visibility="public"/>
+        <Method name="setItem" returnType="void" visibility="public">
+          <Argument type="Item" name="item"/>
+        </Method>
+        <Method name="removeItem" returnType="void" visibility="public">
+          <Argument type="String" name="nome"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PortaoGaragem" package="models" visibility="public" xPosition="20.0" yPosition="420.0">
+      <Fields>
+        <Field name="gerador" type="Gerador" visibility="private"/>
+        <Field name="paciente" type="Paciente" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Ambiente" name="ambiente"/>
+          <Argument type="String" name="status"/>
+          <Argument type="Item" name="token"/>
+          <Argument type="String" name="descricao"/>
+          <Argument type="Gerador" name="gerador"/>
+          <Argument type="Paciente" name="paciente"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="liberarSaida" returnType="boolean" visibility="public">
+          <Argument type="Item" name="item"/>
+        </Method>
+        <Method name="getNomeToken" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Saida" package="models" visibility="public" xPosition="320.0" yPosition="420.0">
+      <Fields>
+        <Field name="ambiente" type="Ambiente" visibility="private"/>
+        <Field name="status" type="StatusSaida" visibility="protected"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Ambiente" name="ambiente"/>
+          <Argument type="String" name="status"/>
+          <Argument type="Item" name="token"/>
+          <Argument type="String" name="descricao"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getAmbiente" returnType="Ambiente" visibility="public"/>
+        <Method name="getStatusSaida" returnType="String" visibility="public"/>
+        <Method name="getDescricaoStatusSaida" returnType="String" visibility="public"/>
+        <Method name="mudarStatusDaSaida" returnType="void" visibility="public">
+          <Argument type="String" name="status"/>
+          <Argument type="String" name="descricao"/>
+        </Method>
+        <Method name="getNomeToken" returnType="String" visibility="public"/>
+        <Method name="liberarSaida" returnType="boolean" visibility="public">
+          <Argument type="Item" name="item"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Gerador" package="models" visibility="public" xPosition="620.0" yPosition="420.0">
+      <Fields>
+        <Field name="ligado" type="boolean" visibility="private"/>
+        <Field name="tempoLigado" type="int" visibility="private"/>
+        <Field name="maximoTempoLigado" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="nome"/>
+          <Argument type="String" name="descricao"/>
+          <Argument type="int" name="peso"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="ligar" returnType="void" visibility="public"/>
+        <Method name="ligado" returnType="boolean" visibility="public"/>
+        <Method name="passarTempo" returnType="void" visibility="public"/>
+        <Method name="haTempoDisponivel" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Item" package="models" visibility="public" xPosition="920.0" yPosition="420.0">
+      <Fields>
+        <Field name="nome" type="String" visibility="private"/>
+        <Field name="descricao" type="String" visibility="private"/>
+        <Field name="peso" type="int" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="nome"/>
+          <Argument type="String" name="descricao"/>
+          <Argument type="int" name="peso"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getNome" returnType="String" visibility="public"/>
+        <Method name="getDescricao" returnType="String" visibility="public"/>
+        <Method name="getPeso" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Ambiente" package="models" visibility="public" xPosition="1220.0" yPosition="420.0">
+      <Fields>
+        <Field name="descricao" type="String" visibility="private"/>
+        <Field name="saidas" type="HashMap&lt;String, Saida&gt;" visibility="private"/>
+        <Field name="itens" type="HashMap&lt;String, Item&gt;" visibility="private"/>
+        <Field name="imagem" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="descricao"/>
+          <Argument type="String" name="imagem"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setSaida" returnType="void" visibility="public">
+          <Argument type="String" name="direcao"/>
+          <Argument type="Saida" name="saida"/>
+        </Method>
+        <Method name="adicionarItem" returnType="void" visibility="public">
+          <Argument type="Item" name="item"/>
+        </Method>
+        <Method name="getItem" returnType="Item" visibility="public">
+          <Argument type="String" name="nome"/>
+        </Method>
+        <Method name="removeItem" returnType="void" visibility="public">
+          <Argument type="String" name="nome"/>
+        </Method>
+        <Method name="getDescricao" returnType="String" visibility="public"/>
+        <Method name="getSaida" returnType="Saida" visibility="public">
+          <Argument type="String" name="direcao"/>
+        </Method>
+        <Method name="getSaidas" returnType="String" visibility="public"/>
+        <Method name="getItens" returnType="String" visibility="public"/>
+        <Method name="getListaItens" returnType="List&lt;String&gt;" visibility="public"/>
+        <Method name="getImagem" returnType="String" visibility="public"/>
+        <Method name="setImagem" returnType="void" visibility="public">
+          <Argument type="String" name="imagem"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="StatusSaida" package="models" visibility="public" xPosition="1520.0" yPosition="420.0">
+      <Fields>
+        <Field name="descricao" type="String" visibility="private"/>
+        <Field name="token" type="Item" visibility="private"/>
+        <Field name="status" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Item" name="token"/>
+          <Argument type="String" name="status"/>
+          <Argument type="String" name="descricao"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getToken" returnType="Item" visibility="public"/>
+        <Method name="getDescricao" returnType="String" visibility="public"/>
+        <Method name="getStatus" returnType="String" visibility="public"/>
+        <Method name="mudarStatus" returnType="void" visibility="public">
+          <Argument type="String" name="status"/>
+          <Argument type="String" name="descricao"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="AmbienteView" package="views" visibility="public" xPosition="1820.0" yPosition="420.0">
+      <Fields>
+        <Field name="jogoController" type="JogoServico" visibility="package"/>
+        <Field name="janela" type="JDialog" visibility="private"/>
+        <Field name="file" type="File" visibility="private"/>
+        <Field name="imagem" type="ImageIcon" visibility="private"/>
+        <Field name="url" type="URL" visibility="private"/>
+        <Field name="layout" type="BorderLayout" visibility="private"/>
+        <Field name="painelNavegacao" type="JPanel" visibility="private"/>
+        <Field name="painelItens" type="JPanel" visibility="private"/>
+        <Field name="btnSaidaNorte" type="JButton" visibility="private"/>
+        <Field name="btnSaidaSul" type="JButton" visibility="private"/>
+        <Field name="btnSaidaLeste" type="JButton" visibility="private"/>
+        <Field name="btnSaidaOeste" type="JButton" visibility="private"/>
+        <Field name="btnExecutar" type="JButton" visibility="private"/>
+        <Field name="btnPeDeCabraAmbiente" type="JButton" visibility="private"/>
+        <Field name="btnBisturiAmbiente" type="JButton" visibility="private"/>
+        <Field name="btnChaveAmbiente" type="JButton" visibility="private"/>
+        <Field name="btnControleAmbiente" type="JButton" visibility="private"/>
+        <Field name="btnGeradorAmbiente" type="JButton" visibility="private"/>
+        <Field name="btnPeDeCabraPaciente" type="JButton" visibility="private"/>
+        <Field name="btnBisturiPaciente" type="JButton" visibility="private"/>
+        <Field name="btnChavePaciente" type="JButton" visibility="private"/>
+        <Field name="btnControlePaciente" type="JButton" visibility="private"/>
+        <Field name="ambiente" type="Ambiente" visibility="private"/>
+        <Field name="lbDescricao" type="JLabel" visibility="private"/>
+        <Field name="tpDescricaoLonga" type="JTextPane" visibility="private"/>
+        <Field name="txtComando" type="JTextField" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="construirJanela" returnType="void" visibility="private"/>
+        <Method name="criarComponentes" returnType="void" visibility="private"/>
+        <Method name="montarJanela" returnType="void" visibility="private"/>
+        <Method name="mudarAmbiente" returnType="void" visibility="private"/>
+        <Method name="verificaDirecoes" returnType="void" visibility="private"/>
+        <Method name="verificaItensAmbiente" returnType="void" visibility="private"/>
+        <Method name="verificaItensPaciente" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+    <Class name="Alerta" package="views" visibility="public" xPosition="2120.0" yPosition="420.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="mensagem" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String" name="mensagem"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="JogoView" package="views" visibility="public" xPosition="20.0" yPosition="820.0">
+      <Fields>
+        <Field name="janela" type="JFrame" visibility="private"/>
+        <Field name="layout" type="BorderLayout" visibility="private"/>
+        <Field name="btnJogar" type="JButton" visibility="private"/>
+        <Field name="lbBoasVindas" type="JLabel" visibility="private"/>
+        <Field name="taBoasVindas" type="JTextPane" visibility="private"/>
+        <Field name="titulo" type="String" visibility="private"/>
+        <Field name="textoBoasVindas" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="titulo"/>
+          <Argument type="String" name="textoBoasVindas"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="construirJanela" returnType="void" visibility="private"/>
+        <Method name="criarComponentes" returnType="void" visibility="public"/>
+        <Method name="montarJanela" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="ambiente" source="models.Saida" target="models.Ambiente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="palavrasDeComando" source="servicos.Analisador" target="servicos.PalavrasComando" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="servicos.JogoServico" target="servicos.Comando" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="models.Gerador" target="models.Item"/>
+    <UseRelation source="servicos.JogoServico" target="models.Ambiente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.Ambiente" target="models.Saida" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="servicos.AmbienteServico" target="models.Ambiente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="servicos.AmbienteServico" target="models.Gerador" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ambiente" source="views.AmbienteView" target="models.Ambiente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="gerador" source="servicos.AmbienteServico" target="models.Gerador" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="models.PortaoGaragem" target="models.Saida"/>
+    <HasRelation name="status" source="models.Saida" target="models.StatusSaida" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.Ambiente" target="models.Item" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.StatusSaida" target="models.Item" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="chave" source="servicos.AmbienteServico" target="models.Item" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="analisador" source="servicos.JogoServico" target="servicos.Analisador" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.Paciente" target="models.Item" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.Saida" target="models.Ambiente" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="saidas" source="models.Ambiente" target="models.Saida" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, Saida&gt;"/>
+    <HasRelation name="jogoController" source="views.AmbienteView" target="servicos.JogoServico" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="servicos.Analisador" target="servicos.Comando" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="token" source="models.StatusSaida" target="models.Item" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.Saida" target="models.Item" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ambienteAtual" source="servicos.JogoServico" target="models.Ambiente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="gerador" source="models.PortaoGaragem" target="models.Gerador" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="itensColetados" source="models.Paciente" target="models.Item" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, Item&gt;"/>
+    <HasRelation name="jogoView" source="servicos.JogoServico" target="views.JogoView" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="paciente" source="servicos.JogoServico" target="models.Paciente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ambienteController" source="servicos.JogoServico" target="servicos.AmbienteServico" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="paciente" source="models.PortaoGaragem" target="models.Paciente" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="models.PortaoGaragem" target="models.Item" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="itens" source="models.Ambiente" target="models.Item" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="HashMap&lt;String, Item&gt;"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
