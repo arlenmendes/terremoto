@@ -1,7 +1,7 @@
 package views;
 
-import controllers.Comando;
-import controllers.JogoController;
+import servicos.Comando;
+import servicos.JogoServico;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -29,7 +29,7 @@ import javax.swing.JTextPane;
  */
 public class AmbienteView {
     //Controller Do Jogo
-    JogoController jogoController;
+    JogoServico jogoController;
     // cria janela
     private JDialog janela;
     //Imagem da janela
@@ -73,7 +73,7 @@ public class AmbienteView {
     
     public AmbienteView() {
         //inicializa o controller do Jogo
-        jogoController = new JogoController();
+        jogoController = new JogoServico();
         //informa o ambiente atual
         this.ambiente = jogoController.getAmbienteAtual();
         layout = new BorderLayout();

@@ -1,4 +1,4 @@
-package controllers;
+package servicos;
 
 import models.Ambiente;
 import models.Gerador;
@@ -10,7 +10,7 @@ import models.Saida;
  *
  * @author arlen
  */
-public class AmbienteController {
+public class AmbienteServico {
     
     //cria itens
     private Item chave, bisturi, controlePortao, peDeCabra;

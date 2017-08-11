@@ -1,6 +1,6 @@
 
 import configuracao.Textos;
-import controllers.JogoController;
+import servicos.JogoServico;
 import views.JogoView;
 
 

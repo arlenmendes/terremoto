@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controllers;
+package servicos;
 
 import configuracao.Textos;
 import java.util.List;
@@ -20,7 +20,7 @@ import views.JogoView;
  * Classe que ira gerenciar todas as açoes do jogo.
  * @author arlen
  */
-public class JogoController {
+public class JogoServico {
     private JogoView jogoView;
     private Paciente paciente;
     private Analisador analisador;
@@ -29,15 +29,15 @@ public class JogoController {
     //Variavel para guardar o ambiente atual
     private Ambiente ambienteAtual;
     //Controller para trabalhar os ambientes
-    private AmbienteController ambienteController;
+    private AmbienteServico ambienteController;
     
     
-    public JogoController() {
+    public JogoServico() {
         contador = 0;
         gameOver = false;
         paciente = new Paciente();
         analisador = new Analisador();
-        ambienteController = new AmbienteController();
+        ambienteController = new AmbienteServico();
         ambienteAtual = ambienteController.prepararAmbientes();
     }
     

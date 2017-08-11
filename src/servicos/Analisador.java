@@ -1,9 +1,9 @@
-package controllers;
+package servicos;
 
 
 
-import controllers.Comando;
-import controllers.PalavrasComando;
+import servicos.Comando;
+import servicos.PalavrasComando;
 import java.util.Scanner;
 
 /**
