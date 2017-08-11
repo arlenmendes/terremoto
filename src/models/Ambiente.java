@@ -52,10 +52,11 @@ public class Ambiente  {
     
     /**
      * Define os itens do ambiente.
+     * Esta função adiciona uma referência do item ao ambiente.
      * @param nome informa o nome do item
      * @param item a ser adicionado ao ambiente
      */
-    public void setItem(String nome, Item item) {
+    public void adicionarItem(String nome, Item item) {
         itens.put(nome, item);
     }
     /**
