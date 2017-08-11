@@ -55,7 +55,7 @@ public class Paciente {
     }
     
     public List<String> listaItens() {
-        List<String> listaItens = new ArrayList<>();
+        List<String> listaItens = new ArrayList<String>();
         
         for(String key : this.itensColetados.keySet()){
             listaItens.add(key);

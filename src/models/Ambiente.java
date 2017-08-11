@@ -127,7 +127,7 @@ public class Ambiente  {
      */
     
     public List<String> getListaItens() {
-        List<String> listaItens = new ArrayList<>();
+        List<String> listaItens = new ArrayList<String>();
         
         for(String key : this.itens.keySet()){
             listaItens.add(key);

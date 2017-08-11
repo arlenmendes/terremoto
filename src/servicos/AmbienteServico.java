@@ -146,7 +146,7 @@ public class AmbienteServico {
     /**
      * Retorna o status de Obstruida.
      * 
-     * @Return String
+     * @Return liberada
      * 
      */
     public String getStatusObstruida() {
