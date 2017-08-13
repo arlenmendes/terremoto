@@ -1,6 +1,7 @@
 package models;
 
 
+import java.io.Serializable;
 import models.Ambiente;
 
 
@@ -9,7 +10,7 @@ import models.Ambiente;
  * Esta classe representa as saidas dos Ambientes do hospital.
  * @author arlen
  */
-public class Saida {
+public class Saida implements Serializable {
     private Ambiente ambiente;
     protected StatusSaida status;
     

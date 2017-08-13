@@ -1,17 +1,19 @@
 package servicos;
 
+import java.io.Serializable;
 import models.Ambiente;
 import models.Gerador;
 import models.Item;
 import models.Paciente;
 import models.PortaoGaragem;
 import models.Saida;
+import persistencias.Persistencia;
 
 /**
  *
  * @author arlen
  */
-public class AmbienteServico {
+public class AmbienteServico extends Persistencia implements Serializable {
     
     //cria itens
     private Item chave, bisturi, controlePortao, peDeCabra;
@@ -26,12 +28,19 @@ public class AmbienteServico {
     private final String liberadaDescricao = "Porta Liberada.";
     private final String trancadaDescricao = "Porta Trancada.";
     private final String obstruidaDescricao = "Porta Obstruida Por Destroços Do Predio.";
+    
+    private Ambiente ambienteAtual;
+    
+    public AmbienteServico(Paciente paciente) {
+        ambienteAtual = this.prepararAmbientes(paciente);
+    }
+    
     /**
      * Prepara os ambientes, com suas saidas e seus itens, e retorna o ambiente inicial.
      * @param paciente do jogo
      * @return Ambiente atual
      */
-    public Ambiente prepararAmbientes(Paciente paciente) {
+    private Ambiente prepararAmbientes(Paciente paciente) {
         Ambiente exterior, saguao, garagem, recepicaoGeral, triagem, corredor, recepcaoUti, uti, salaEsperaUti, recepcaoCti, cti, salaEsperaCti, salaFuncionarios, salaLimpeza, almoxerifado, salaSeguranca, salaMaquinas;
         
         //cria itens
@@ -146,7 +155,7 @@ public class AmbienteServico {
     /**
      * Retorna o status de Obstruida.
      * 
-     * @Return liberada
+     * @return liberada
      * 
      */
     public String getStatusObstruida() {
@@ -156,7 +165,7 @@ public class AmbienteServico {
     /**
      * Retorna o status de Liberada.
      * 
-     * @Return String
+     * @return String
      * 
      */
     public String getStatusLiberada() {
@@ -166,7 +175,7 @@ public class AmbienteServico {
     /**
      * Retorna o status de Trancada.
      * 
-     * @Return String
+     * @return String
      * 
      */
     public String getStatusTrancada() {
@@ -176,7 +185,7 @@ public class AmbienteServico {
     /**
      * Retorna a descricao do status de Liberada.
      * 
-     * @Return String
+     * @return String
      * 
      */
     public String getLiberadaDescricao() {
@@ -186,7 +195,7 @@ public class AmbienteServico {
     /**
      * Retorna a descricao do status de Obstruida.
      * 
-     * @Return String
+     * @return String
      * 
      */
     public String getObstruidaDescricao() {
@@ -196,10 +205,28 @@ public class AmbienteServico {
     /**
      * Retorna a descricao do status de Trancada.
      * 
-     * @Return String
+     * @return String
      * 
      */
     public String getTrancadaDescricao() {
         return this.trancadaDescricao;
+    }
+    /**
+     * Retorna o ambiente atual.
+     * 
+     * @return Ambiente
+     * 
+     */
+    public Ambiente getAmbienteAtual(){
+        return this.ambienteAtual;
+    }
+    
+    /**
+     * Altera o ambiente atual.
+     * @param ambiente
+     */
+    
+    public void setAmbienteAtual(Ambiente ambiente) {
+        this.ambienteAtual = ambiente;
     }
 }

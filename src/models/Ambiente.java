@@ -3,6 +3,7 @@ package models;
 
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
  * @author  Arlen Mendes
  * @version 2011.07.31 (2017.05.16)
  */
-public class Ambiente  {
+public class Ambiente implements Serializable{
     private String descricao;
     private HashMap<String, Saida> saidas;
     private HashMap<String, Item> itens;

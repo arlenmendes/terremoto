@@ -1,12 +1,14 @@
 package models;
 
+import java.io.Serializable;
+
 
 
 /**
  * Esta classe representa o Status das saidas dos ambientes
  * @author arlen
  */
-public class StatusSaida {
+public class StatusSaida implements Serializable {
     private String descricao;
     private Item token;
     private String status;

@@ -3,6 +3,7 @@ package models;
 
 
 
+import java.io.Serializable;
 import models.Item;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.List;
  * Classe que representa o personagem principal do jogo.
  * @author arlen
  */
-public class Paciente {
+public class Paciente  implements Serializable {
     //Hash que representa os itens coletados pelo jogador
     private HashMap<String, Item> itensColetados;
     //capacidade máxima do jogador. Isso indica quanto, em peso, ele pode

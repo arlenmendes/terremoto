@@ -57,11 +57,18 @@ public class JogoView {
         taBoasVindas.setText(textoBoasVindas);
         taBoasVindas.setEditable(false);
 //        lbBoasVindas = new JLabel(this.textoBoasVindas);
-        // adiciona o método que tratará o evento de clique no botão Jogar
+        // adiciona o método que tratará o evento de clique no botão Novo Jogo
         btnNovoJogo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AmbienteView ambienteView = new AmbienteView();
+                AmbienteView ambienteView = new AmbienteView(true);
+            }
+        });
+        
+        btnCarregarJogo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AmbienteView ambienteView = new AmbienteView(false);
             }
         });
     }

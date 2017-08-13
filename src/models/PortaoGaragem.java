@@ -1,6 +1,7 @@
 package models;
 
 
+import java.io.Serializable;
 import models.Item;
 import models.Saida;
 import models.Ambiente;
@@ -11,7 +12,7 @@ import models.Ambiente;
  * Esta classe representa uma Saida do Tipo Portao de Garagem
  * @author arlen
  */
-public class PortaoGaragem extends Saida{
+public class PortaoGaragem extends Saida  implements Serializable{
     private Gerador gerador;
     private Paciente paciente;
     public PortaoGaragem(   Ambiente ambiente,

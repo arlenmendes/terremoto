@@ -29,7 +29,7 @@ import javax.swing.JTextPane;
  */
 public class AmbienteView {
     //Controller Do Jogo
-    JogoServico jogoController;
+    JogoServico jogoServico;
     // cria janela
     private JDialog janela;
     //Imagem da janela
@@ -49,6 +49,7 @@ public class AmbienteView {
     private JButton btnSaidaLeste;
     private JButton btnSaidaOeste;
     private JButton btnExecutar;
+    private JButton btnSalvar;
     
     //Botoes itens do Ambiente
     private JButton btnPeDeCabraAmbiente;
@@ -70,16 +71,26 @@ public class AmbienteView {
     private JTextPane tpDescricaoLonga;
     //TextField da tela
     private JTextField txtComando;
-    
-    public AmbienteView() {
-        //inicializa o controller do Jogo
-        jogoController = new JogoServico();
-        //informa o ambiente atual
-        this.ambiente = jogoController.getAmbienteAtual();
+    /**
+     * Construtor. É necessário informar se está iniciando um novo jogo com um
+     * boleano.
+     * @param novoJogo 
+     */
+    public AmbienteView(Boolean novoJogo) {
         layout = new BorderLayout();
+        //inicializa o controller do Jogo
+        jogoServico = new JogoServico();
+        //verifica se é para iniciar um novo jogo ou carregar um salvo
+        if (novoJogo) {
+            jogoServico.novoJogo();
+        } else {
+            jogoServico.carregarJogoSalvo();
+        }
+        //informa o ambiente atual
+        this.ambiente = jogoServico.getAmbienteAtual();
         construirJanela();
     }
-    
+        
     private void construirJanela() {
         
         janela = new JDialog();
@@ -106,10 +117,11 @@ public class AmbienteView {
         }
         
         tpDescricaoLonga = new JTextPane();
-        tpDescricaoLonga.setText(ambiente.getDescricao()+ "\n\nMovimentos: " + jogoController.getContador());
+        tpDescricaoLonga.setText(ambiente.getDescricao()+ "\n\nMovimentos: " + jogoServico.getContador());
         tpDescricaoLonga.setEditable(false);
         
         btnExecutar = new JButton("Executar");
+        btnSalvar = new JButton("Salvar Progresso");
         btnSaidaNorte = new JButton("Saida Norte");
         btnSaidaSul = new JButton("Saida Sul");
         btnSaidaLeste = new JButton("Saida Leste");
@@ -118,7 +130,7 @@ public class AmbienteView {
         txtComando = new JTextField(20);
         txtComando.setText("");
         //cria painel de Direções e adiciona os botoes
-        painelNavegacao = new JPanel(new GridLayout(8, 1));
+        painelNavegacao = new JPanel(new GridLayout(10, 1));
         
         painelNavegacao.add(new JLabel("Navegação por botao"));
         painelNavegacao.add(btnSaidaNorte);
@@ -128,6 +140,8 @@ public class AmbienteView {
         painelNavegacao.add(new JLabel("Comandos Por Texto"));
         painelNavegacao.add(txtComando);
         painelNavegacao.add(btnExecutar);
+        painelNavegacao.add(new JLabel("Progresso"));
+        painelNavegacao.add(btnSalvar);
         
         verificaDirecoes();
         
@@ -140,7 +154,7 @@ public class AmbienteView {
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                    jogoController.executarComando(txtComando.getText());
+                    jogoServico.executarComando(txtComando.getText());
                     mudarAmbiente();
                 }
             }
@@ -158,8 +172,17 @@ public class AmbienteView {
                 if(txtComando.getText().equals("")){
                     JOptionPane.showMessageDialog(null, "Informe um comando");
                 } else {
-                    jogoController.executarComando(txtComando.getText());
+                    jogoServico.executarComando(txtComando.getText());
                 }
+            }
+        });
+        
+        //adicionar evento para botão Salvar
+        btnSalvar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jogoServico.salvarJogo();
+                Alerta.mensagem("Jogo salvo com Sucesso.");
             }
         });
         
@@ -180,7 +203,7 @@ public class AmbienteView {
         painelItens.add(btnBisturiPaciente);
         painelItens.add(btnControlePaciente);
         
-        if(jogoController.getGameOver()) {
+        if(jogoServico.getGameOver()) {
             btnExecutar.setEnabled(false);
             btnSaidaLeste.setEnabled(false);
             btnSaidaOeste.setEnabled(false);
@@ -209,10 +232,10 @@ public class AmbienteView {
      */
     private void mudarAmbiente() {
         
-        ambiente = jogoController.getAmbienteAtual();
+        ambiente = jogoServico.getAmbienteAtual();
         janela.dispose();
         construirJanela();
-        if(jogoController.getGameOver())
+        if(jogoServico.getGameOver())
             janela.dispose();
 //        verificaDirecoes();
 //        criarComponentes();
@@ -231,7 +254,7 @@ public class AmbienteView {
             btnSaidaNorte.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.mudarAmbiente(new Comando("ir", "norte"));
+                    jogoServico.mudarAmbiente(new Comando("ir", "norte"));
                     mudarAmbiente();
                 }
             });
@@ -242,7 +265,7 @@ public class AmbienteView {
             btnSaidaSul.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.mudarAmbiente(new Comando("ir", "sul"));
+                    jogoServico.mudarAmbiente(new Comando("ir", "sul"));
                     mudarAmbiente();
                 }
             });
@@ -253,7 +276,7 @@ public class AmbienteView {
             btnSaidaLeste.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.mudarAmbiente(new Comando("ir", "leste"));
+                    jogoServico.mudarAmbiente(new Comando("ir", "leste"));
                     mudarAmbiente();
                 }
             });
@@ -264,7 +287,7 @@ public class AmbienteView {
             btnSaidaOeste.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.mudarAmbiente(new Comando("ir", "oeste"));
+                    jogoServico.mudarAmbiente(new Comando("ir", "oeste"));
                     mudarAmbiente();
                 }
             });
@@ -285,7 +308,7 @@ public class AmbienteView {
             btnPeDeCabraAmbiente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.executarComando("coletar pe-de-cabra");
+                    jogoServico.executarComando("coletar pe-de-cabra");
                     mudarAmbiente();
                 }
             });
@@ -300,7 +323,7 @@ public class AmbienteView {
             btnBisturiAmbiente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.executarComando("coletar bisturi");
+                    jogoServico.executarComando("coletar bisturi");
                     mudarAmbiente();
                 }
             });
@@ -315,7 +338,7 @@ public class AmbienteView {
             btnChaveAmbiente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.executarComando("coletar chave");
+                    jogoServico.executarComando("coletar chave");
                     mudarAmbiente();
                 }
             });
@@ -330,7 +353,7 @@ public class AmbienteView {
             btnControleAmbiente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.executarComando("coletar controle-portao");
+                    jogoServico.executarComando("coletar controle-portao");
                     mudarAmbiente();
                 }
             });
@@ -345,7 +368,7 @@ public class AmbienteView {
             btnGeradorAmbiente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.executarComando("ligar gerador");
+                    jogoServico.executarComando("ligar gerador");
                     mudarAmbiente();
                 }
             });
@@ -359,14 +382,14 @@ public class AmbienteView {
      * Caso haja algum item disponivel, habilita seu determinado botão.
      */
     private void verificaItensPaciente() {
-        List<String> itens = jogoController.getItensPaciente();
+        List<String> itens = jogoServico.getItensPaciente();
         if(itens.contains("pe-de-cabra")){
             btnPeDeCabraPaciente = new JButton("pe-de-cabra");
             
             btnPeDeCabraPaciente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.executarComando("desfazer pe-de-cabra");
+                    jogoServico.executarComando("desfazer pe-de-cabra");
                     mudarAmbiente();
                 }
             });
@@ -381,7 +404,7 @@ public class AmbienteView {
             btnBisturiPaciente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.executarComando("desfazer bisturi");
+                    jogoServico.executarComando("desfazer bisturi");
                     mudarAmbiente();
                 }
             });
@@ -396,7 +419,7 @@ public class AmbienteView {
             btnChavePaciente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.executarComando("desfazer chave");
+                    jogoServico.executarComando("desfazer chave");
                     mudarAmbiente();
                 }
             });
@@ -411,7 +434,7 @@ public class AmbienteView {
             btnControlePaciente.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    jogoController.executarComando("desfazer controle-portao");
+                    jogoServico.executarComando("desfazer controle-portao");
                     mudarAmbiente();
                 }
             });

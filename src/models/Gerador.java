@@ -1,6 +1,7 @@
 package models;
 
 
+import java.io.Serializable;
 import models.Item;
 
 
@@ -9,7 +10,7 @@ import models.Item;
  * Esta classe representa um gerador de energia, que extende a item.
  * @author arlen
  */
-public class Gerador extends Item {
+public class Gerador extends Item  implements Serializable{
     
     private boolean ligado;
     

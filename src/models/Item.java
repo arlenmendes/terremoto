@@ -1,5 +1,7 @@
 package models;
 
+import java.io.Serializable;
+
 
 
 
@@ -10,7 +12,7 @@ package models;
  * personagem interagir.
  * @author arlen
  */
-public class Item {
+public class Item  implements Serializable {
     private String nome;
     private String descricao;
     private int peso;

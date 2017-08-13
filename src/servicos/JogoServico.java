@@ -5,16 +5,15 @@
  */
 package servicos;
 
-import configuracao.Textos;
+import java.io.IOException;
 import java.util.List;
 import models.Ambiente;
 import models.Item;
 import models.Paciente;
-import models.PortaoGaragem;
 import models.Saida;
 import views.Alerta;
-import views.AmbienteView;
 import views.JogoView;
+import persistencias.Persistencia;
 
 /**
  * Classe que ira gerenciar todas as açoes do jogo.
@@ -29,19 +28,56 @@ public class JogoServico {
     //Variavel para guardar o ambiente atual
     private Ambiente ambienteAtual;
     //Controller para trabalhar os ambientes
-    private AmbienteServico ambienteController;
+    private AmbienteServico ambienteServico;
     
     /**
-     * Metodo construtor da classe.
+     * Metodo que inicia um jogo do Zero.
      * Inicia todos os dados que serão utilizados nas iterações com o jogador.
      */
-    public JogoServico() {
+    public void novoJogo(){
         contador = 0;
         gameOver = false;
         paciente = new Paciente();
         analisador = new Analisador();
-        ambienteController = new AmbienteServico();
-        ambienteAtual = ambienteController.prepararAmbientes(paciente);
+        ambienteServico = new AmbienteServico(paciente);
+        ambienteAtual = ambienteServico.getAmbienteAtual();
+    }
+    /**
+     * Metodo que inicia um jogo a partir de dados salvos.
+     * Inicia todos os dados que serão utilizados nas iterações com o jogador.
+     */
+    public void carregarJogoSalvo() {
+//        contador = 0;
+        gameOver = false;
+        analisador = new Analisador();
+        //ambienteServico = new AmbienteServico(paciente);
+        try {
+//            paciente = Persistencia.carregarPaciente();
+//            ambienteServico = Persistencia.carregarAmbienteServico();
+            DadosDinamicos dd = Persistencia.carregarDados();
+            paciente = dd.getPaciente();
+            ambienteServico = dd.getAmbienteServico();
+            contador = dd.getContador();
+        } catch (Exception e) {
+            Alerta.mensagem("Erro ao carregar um jogo salvo, talvez você ainda"
+                    + " não tenha um. Será iniciado um novo jogo. Boa sorte!!");
+            System.out.println(e.getMessage());
+            paciente = new Paciente();
+            ambienteServico = new AmbienteServico(paciente);
+        }
+        ambienteAtual = ambienteServico.getAmbienteAtual();
+    }
+    
+    public void salvarJogo() {
+        try {
+//            Persistencia.salvarAmbienteServico(ambienteServico);
+//            Persistencia.salvarPaciente(paciente);
+
+            DadosDinamicos dd = new DadosDinamicos(ambienteServico, paciente, contador);
+            Persistencia.salvarDados(dd);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
     
     /**
@@ -69,28 +105,30 @@ public class JogoServico {
         //verifica se a direção informada existe
         if(saida != null){
             //verifica se a saida esta liberada, obstruida ou trancada
-            if(saida.getStatusSaida().equals(ambienteController.getStatusLiberada())){
+            if(saida.getStatusSaida().equals(ambienteServico.getStatusLiberada())){
                 //verifica se o gerador está ligado
                 //a cada movimentação entre ambientes, o gerador "consome combustivel"
-                if(ambienteController.getGerador().ligado())
-                    ambienteController.getGerador().passarTempo();
+                if(ambienteServico.getGerador().ligado())
+                    ambienteServico.getGerador().passarTempo();
                 ambienteAtual = saida.getAmbiente();
+                ambienteServico.setAmbienteAtual(ambienteAtual);
                 this.contador++;
-            } else if(saida.getStatusSaida().equals(ambienteController.getStatusObstruida())) {
+            } else if(saida.getStatusSaida().equals(ambienteServico.getStatusObstruida())) {
                 
                 Alerta.mensagem("Ops! Você não pode passar por aqui " + saida.getDescricaoStatusSaida());
                 
-            } else if(saida.getStatusSaida().equals(ambienteController.getStatusTrancada())) {
+            } else if(saida.getStatusSaida().equals(ambienteServico.getStatusTrancada())) {
                 //verifica se o jogador possui o token necessario para abrir a porta
                 if(saida.liberarSaida(paciente.getItem(saida.getNomeToken()))) {
-                    saida.mudarStatusDaSaida(ambienteController.getStatusLiberada(), ambienteController.getLiberadaDescricao());
+                    saida.mudarStatusDaSaida(ambienteServico.getStatusLiberada(), ambienteServico.getLiberadaDescricao());
                     Alerta.mensagem("Você desbloqueou esta saida... mudando de  ambiente.");
                     ambienteAtual = saida.getAmbiente();
+                    ambienteServico.setAmbienteAtual(ambienteAtual);
 
                     //verifica se o gerador está ligado
                     //a cada movimentação entre ambientes, o gerador "consome combustivel"
-                    if(ambienteController.getGerador().ligado())
-                        ambienteController.getGerador().passarTempo();
+                    if(ambienteServico.getGerador().ligado())
+                        ambienteServico.getGerador().passarTempo();
                     this.contador++;
                 } else {
                     Alerta.mensagem("Porta trancada. Você precisa do(s) item(ns)  " + saida.getNomeToken() + " para abrir.");
@@ -141,7 +179,7 @@ public class JogoServico {
                 break;
             case "ligar":
                 ligarGerador(comando);
-                System.out.println(ambienteController.getGerador().ligado());
+                System.out.println(ambienteServico.getGerador().ligado());
                 break;
             case "sair":
                 this.gameOver = true;
@@ -153,13 +191,11 @@ public class JogoServico {
         
         if(ambienteAtual.getDescricao().equals("exterior do hospital")){
             Alerta.mensagem("Parabéns, você conseguiu sair do Hospital\nVocê venceu!!!!!\n\n Sua pontuação foi: " + this.getContador());
-        } else if(ambienteController.getGerador().ligado()){
-            if(!ambienteController.getGerador().haTempoDisponivel()) {
+        } else if(ambienteServico.getGerador().ligado()){
+            if(!ambienteServico.getGerador().haTempoDisponivel()) {
                 Alerta.mensagem("FIM DO JOGO!! \nO gerador Acabou a Energia e você não pode mais\nsair do Hospital.");
                 gameOver = true;
             }
-            
-                
         }
     }
     
@@ -223,9 +259,9 @@ public class JogoServico {
      */
     private void ligarGerador(Comando comando) {
         if(ambienteAtual.getItem(comando.getSegundaPalavra()) != null){
-            if(ambienteAtual.getItem(comando.getSegundaPalavra()).getNome().equals(ambienteController.getGerador().getNome())){
-                if(!ambienteController.getGerador().ligado()){
-                    ambienteController.getGerador().ligar();
+            if(ambienteAtual.getItem(comando.getSegundaPalavra()).getNome().equals(ambienteServico.getGerador().getNome())){
+                if(!ambienteServico.getGerador().ligado()){
+                    ambienteServico.getGerador().ligar();
                     Alerta.mensagem("Gerador ligado. Fique atento, pois se demorar muito para sair, o combustivel do gerador pode acabar.");
                 } else {
                     Alerta.mensagem("Gerador já esta ligado!");
