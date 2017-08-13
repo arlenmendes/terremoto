@@ -6,12 +6,14 @@
 package views;
 
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 
@@ -33,9 +35,11 @@ public class JogoView {
     private JTextPane taBoasVindas;
     private String titulo;
     private String textoBoasVindas;
+    private String nomeUsuario;
     
-    public JogoView(String titulo, String textoBoasVindas) {
+    public JogoView(String titulo, String textoBoasVindas, String nomeUsuario) {
         this.titulo = titulo;
+        this.nomeUsuario = nomeUsuario;
         this.textoBoasVindas = textoBoasVindas;
         construirJanela();
     }
@@ -76,13 +80,18 @@ public class JogoView {
      * Dispoe os componentes na tela
      */
     private void montarJanela() {
-        janela.setSize(500, 170);
+        janela.setSize(500, 230);
         janela.setLayout(layout);
         janela.setLocationRelativeTo(null);
         //adicionar os componentes da tela
-        janela.add(taBoasVindas, BorderLayout.NORTH);
-        janela.add(btnNovoJogo, BorderLayout.WEST);
-        janela.add(btnCarregarJogo, BorderLayout.EAST);
+        janela.add(new JLabel("Usuário: " + nomeUsuario), BorderLayout.NORTH);
+        janela.add(taBoasVindas, BorderLayout.CENTER);
+        
+        JPanel painelEsquerdo = new JPanel(new GridLayout(2,1));
+        
+        painelEsquerdo.add(btnNovoJogo);
+        painelEsquerdo.add(btnCarregarJogo);
+        janela.add(painelEsquerdo, BorderLayout.EAST);
         janela.setVisible(true);
     }
 }

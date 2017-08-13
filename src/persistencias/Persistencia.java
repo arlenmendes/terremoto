@@ -10,6 +10,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
+import java.util.List;
+import models.Usuario;
 import servicos.DadosDinamicos;
 
 /**
@@ -18,6 +21,7 @@ import servicos.DadosDinamicos;
  */
 public class Persistencia {
     private static final String nomeArquivo = "dados.bat";
+    private static final String arquivoUsuarios = "usuarios.bat";
     
     
     /**
@@ -45,4 +49,33 @@ public class Persistencia {
         ois.close();
         return dd;
     }
+    
+    
+    /**
+     * Esta função salva um binario de HashMap de Usuarios.
+     */
+    public static void salvarUsuarios(HashMap<String, Usuario> usuarios) throws Exception{
+        
+        ObjectOutputStream oos
+                = new ObjectOutputStream(new FileOutputStream(arquivoUsuarios));
+        oos.writeObject(usuarios);
+        oos.close();
+    }
+    
+    /**
+     * Esta função retorna uma instancia de HashMap de Usuarios, caso haja
+     * uma instância serializada.
+     * @return List
+     */
+    public static HashMap<String, Usuario> carregarUsuarios() throws Exception{
+        HashMap<String, Usuario> usuarios = null;
+        ObjectInputStream ois = new ObjectInputStream(
+                                            new FileInputStream(arquivoUsuarios)
+                                        );
+        usuarios = (HashMap<String, Usuario>)ois.readObject();
+        ois.close();
+        return usuarios;
+    }
+    
+    
 }

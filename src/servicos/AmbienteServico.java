@@ -10,7 +10,7 @@ import models.Saida;
 import persistencias.Persistencia;
 
 /**
- *
+ *  Esta classe é responsável por todo o controle das informações dos ambientes
  * @author arlen
  */
 public class AmbienteServico extends Persistencia implements Serializable {
