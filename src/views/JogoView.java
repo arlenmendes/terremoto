@@ -25,7 +25,8 @@ public class JogoView {
     //Layout da tela
     private BorderLayout layout;
     //botoes da tela
-    private JButton btnJogar;
+    private JButton btnNovoJogo;
+    private JButton btnCarregarJogo;
     //label da tela
     private JLabel lbBoasVindas;
     //textos da tela
@@ -50,13 +51,14 @@ public class JogoView {
      */
     public void criarComponentes() {
         layout = new BorderLayout();
-        btnJogar = new JButton("Iniciar");
+        btnNovoJogo = new JButton("Novo Jogo");
+        btnCarregarJogo = new JButton("Carregar Jogo Salvo");
         taBoasVindas = new JTextPane();
         taBoasVindas.setText(textoBoasVindas);
         taBoasVindas.setEditable(false);
 //        lbBoasVindas = new JLabel(this.textoBoasVindas);
         // adiciona o método que tratará o evento de clique no botão Jogar
-        btnJogar.addActionListener(new ActionListener() {
+        btnNovoJogo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AmbienteView ambienteView = new AmbienteView();
@@ -72,7 +74,8 @@ public class JogoView {
         janela.setLocationRelativeTo(null);
         //adicionar os componentes da tela
         janela.add(taBoasVindas, BorderLayout.NORTH);
-        janela.add(btnJogar, BorderLayout.CENTER);
+        janela.add(btnNovoJogo, BorderLayout.WEST);
+        janela.add(btnCarregarJogo, BorderLayout.EAST);
         janela.setVisible(true);
     }
 }
