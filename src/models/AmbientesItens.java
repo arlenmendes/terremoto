@@ -5,7 +5,9 @@
  */
 package models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,11 +20,15 @@ public class AmbientesItens {
     private Map<String, Ambiente> ambientes;
     private Map<String, Item> itens;
     private String ambienteInicial;
+    private List<String> ambientesEstaticos;
+    private List<String> itensEstaticos;
     
     public AmbientesItens(
     ) {
         this.ambientes = new HashMap<>();
         this.itens = new HashMap<>();
+        this.ambientesEstaticos = new ArrayList<>();
+        this.itensEstaticos = new ArrayList<>();
         adicionaDadosEstaticos();
     }
     /**
@@ -47,6 +53,14 @@ public class AmbientesItens {
         ambientes.put("sala de maquinas", salaMaquinas);
         //saidas estaticas
         garagem.setSaida("oeste", new PortaoGaragem(exterior, 2, controlePortao, "Saida Trancada.",  gerador));
+        
+        for(String s : ambientes.keySet()){
+            ambientesEstaticos.add(s);
+        }
+        
+        for(String i : itens.keySet()){
+            itensEstaticos.add(i);
+        }
     }
     /**
      * @return the ambientes
@@ -84,12 +98,28 @@ public class AmbientesItens {
     }
     
     /**
-     * 
+     * Esta função seta o ambiente inicial do jogo.
+     * @param ai
      */
     public void setNomeAmbienteInicial(String ai){
         this.ambienteInicial = ai;
     }
     
+    /**
+     * Esta função retorna um List com os nomes dos ambientes estaticos
+     * @return 
+     */
+    public List<String> getNomeAmbientesEstaticos() {
+        return this.ambientesEstaticos;
+    }
+    
+    /**
+     * Esta função retorna um List com os nomes dos ambientes estaticos
+     * @return 
+     */
+    public List<String> getNomeItensEstaticos() {
+        return this.itensEstaticos;
+    }
     
     
 }
