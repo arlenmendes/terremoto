@@ -31,6 +31,7 @@ public class PrincipalView {
     //botoes do da tela
     private JButton btnEntrar;
     private JButton btnNovoUsuario;
+    private JButton btnModoDesign;
     private UsuarioServico usuarioServico;
     
     
@@ -56,12 +57,15 @@ public class PrincipalView {
      * Esta função inicia os componentes da tela.
      */
     private void criarComponentes() {
-        layout = new GridLayout(3, 2);
+        layout = new GridLayout(4, 1);
         
         cbUsuarios = new JComboBox();
         preparaListaUsuarios();
         btnEntrar = new JButton("Entrar");
         btnNovoUsuario = new JButton("Novo Usuário");
+        btnModoDesign = new JButton("Modo Design");
+        
+        //adicionando evento aos botoes da tela
         
         btnEntrar.addActionListener(new ActionListener() {
             @Override
@@ -90,6 +94,13 @@ public class PrincipalView {
                 }
             }
         });
+        
+        btnModoDesign.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
     }
     //Esta função prepara o combobox de usuarios para serem selecionados
     private void preparaListaUsuarios() {
@@ -104,7 +115,7 @@ public class PrincipalView {
      * layout.
      */
     private void montarJanela() {
-        janela.setSize(350, 130);
+        janela.setSize(350, 170);
         janela.setLayout(layout);
         janela.setLocationRelativeTo(null);
         
@@ -112,6 +123,7 @@ public class PrincipalView {
         janela.add(cbUsuarios);
         janela.add(btnEntrar);
         janela.add(btnNovoUsuario);
+        janela.add(btnModoDesign);
         
         
     }
