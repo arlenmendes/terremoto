@@ -5,6 +5,7 @@
  */
 package models;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -19,13 +20,33 @@ public class AmbientesItens {
     private String ambienteInicial;
     
     public AmbientesItens(
-            Map<String, Ambiente> ambientes,
-            Map<String, Item> itens,
-            String ambienteInicial
     ) {
-        this.ambientes = ambientes;
-        this.itens = itens;
-        this.ambienteInicial = ambienteInicial;
+        this.ambientes = new HashMap<>();
+        this.itens = new HashMap<>();
+        adicionaDadosEstaticos();
+    }
+    /**
+     * Esta função adiciona os dados estaticos do sistema. Este dados são primordiais para
+     * o funcionamento do sistema do jogo a partir da organzação Original.
+     */
+    private void adicionaDadosEstaticos() {
+        //dados estaticos do sistema
+        //ambientes
+        Ambiente garagem = new Ambiente("Garagem do hospital", "/views/imagens/hospital.jpg", false);
+        Ambiente exterior = new Ambiente("exterior do hospital", "/views/imagens/hospital.jpg", true);
+        Ambiente salaMaquinas = new Ambiente("Sala das maquinas do Hospital.", "/views/imagens/hospital.jpg", false);
+        //itens
+        Gerador gerador = new Gerador("gerador","Gerador de energia", 50);
+        Item controlePortao = new Item("controle-portao","Controle do Portao da Garagem", 2);
+        
+        salaMaquinas.adicionarItem(gerador);
+        salaMaquinas.adicionarItem(controlePortao);
+        
+        ambientes.put("garagem", garagem);
+        ambientes.put("exterior", exterior);
+        ambientes.put("sala de maquinas", salaMaquinas);
+        //saidas estaticas
+        garagem.setSaida("oeste", new PortaoGaragem(exterior, 2, controlePortao, "Saida Trancada.",  gerador));
     }
     /**
      * @return the ambientes
@@ -37,8 +58,8 @@ public class AmbientesItens {
     /**
      * @param ambientes the ambientes to set
      */
-    public void setAmbientes(Map<String, Ambiente> ambientes) {
-        this.ambientes = ambientes;
+    public void setAmbiente(String nome, Ambiente ambiente) {
+        this.ambientes.put(nome, ambiente);
     }
 
     /**
@@ -49,10 +70,10 @@ public class AmbientesItens {
     }
 
     /**
-     * @param itens the itens to set
+     * @param item the item to set
      */
-    public void setItens(Map<String, Item> itens) {
-        this.itens = itens;
+    public void setItem(Item item) {
+        this.itens.put(item.getNome(), item);
     }
 
     /**
@@ -60,6 +81,13 @@ public class AmbientesItens {
      */
     public String getAmbienteInicial() {
         return ambienteInicial;
+    }
+    
+    /**
+     * 
+     */
+    public void setNomeAmbienteInicial(String ai){
+        this.ambienteInicial = ai;
     }
     
     
