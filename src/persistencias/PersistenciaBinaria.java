@@ -16,10 +16,10 @@ import models.Usuario;
 import servicos.DadosDinamicos;
 
 /**
- *
+ * Esta classe é responsável por salvar seus devidos arquivos binários.
  * @author arlen
  */
-public class Persistencia {
+public class PersistenciaBinaria {
     private static final String arquivoUsuarios = "usuarios.bat";
     
     

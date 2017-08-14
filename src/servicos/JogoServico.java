@@ -12,7 +12,7 @@ import models.Paciente;
 import models.Saida;
 import views.Alerta;
 import views.JogoView;
-import persistencias.Persistencia;
+import persistencias.PersistenciaBinaria;
 
 /**
  * Classe que ira gerenciar todas as açoes do jogo.
@@ -45,7 +45,7 @@ public class JogoServico {
         ganhou = false;
         paciente = new Paciente();
         analisador = new Analisador();
-        ambienteServico = new AmbienteServico(paciente);
+        ambienteServico = new AmbienteServico();
         ambienteAtual = ambienteServico.getAmbienteAtual();
     }
     /**
@@ -58,9 +58,9 @@ public class JogoServico {
         analisador = new Analisador();
         //ambienteServico = new AmbienteServico(paciente);
         try {
-//            paciente = Persistencia.carregarPaciente();
-//            ambienteServico = Persistencia.carregarAmbienteServico();
-            DadosDinamicos dd = Persistencia.carregarDados(nomeUsuario);
+//            paciente = PersistenciaBinaria.carregarPaciente();
+//            ambienteServico = PersistenciaBinaria.carregarAmbienteServico();
+            DadosDinamicos dd = PersistenciaBinaria.carregarDados(nomeUsuario);
             paciente = dd.getPaciente();
             ambienteServico = dd.getAmbienteServico();
             contador = dd.getContador();
@@ -69,7 +69,7 @@ public class JogoServico {
                     + " não tenha um. Será iniciado um novo jogo. Boa sorte!!");
             System.out.println(e.getMessage());
             paciente = new Paciente();
-            ambienteServico = new AmbienteServico(paciente);
+            ambienteServico = new AmbienteServico();
         }
         ambienteAtual = ambienteServico.getAmbienteAtual();
     }
@@ -79,7 +79,7 @@ public class JogoServico {
     public void salvarJogo(String nomeUsuario) {
         try {
             DadosDinamicos dd = new DadosDinamicos(ambienteServico, paciente, contador);
-            Persistencia.salvarDados(dd, nomeUsuario);
+            PersistenciaBinaria.salvarDados(dd, nomeUsuario);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -110,7 +110,7 @@ public class JogoServico {
         //verifica se a direção informada existe
         if(saida != null){
             //verifica se a saida esta liberada, obstruida ou trancada
-            if(saida.getStatusSaida().equals(ambienteServico.getStatusLiberada())){
+            if(saida.getStatusSaida()== ambienteServico.getStatusLiberada()){
                 //verifica se o gerador está ligado
                 //a cada movimentação entre ambientes, o gerador "consome combustivel"
                 if(ambienteServico.getGerador().ligado())
@@ -118,11 +118,11 @@ public class JogoServico {
                 ambienteAtual = saida.getAmbiente();
                 ambienteServico.setAmbienteAtual(ambienteAtual);
                 this.contador++;
-            } else if(saida.getStatusSaida().equals(ambienteServico.getStatusObstruida())) {
+            } else if(saida.getStatusSaida() == ambienteServico.getStatusObstruida()) {
                 
                 Alerta.mensagem("Ops! Você não pode passar por aqui " + saida.getDescricaoStatusSaida());
                 
-            } else if(saida.getStatusSaida().equals(ambienteServico.getStatusTrancada())) {
+            } else if(saida.getStatusSaida() == ambienteServico.getStatusTrancada()) {
                 //verifica se o jogador possui o token necessario para abrir a porta
                 if(saida.liberarSaida(paciente.getItens())) {
                     saida.mudarStatusDaSaida(ambienteServico.getStatusLiberada(), ambienteServico.getLiberadaDescricao());
@@ -193,7 +193,6 @@ public class JogoServico {
             default:
                 break;
         }
-        System.out.println("here");
         if(ambienteAtual.getAmbienteDeVitoria()){
             Alerta.mensagem("Parabéns, você conseguiu sair do Hospital\nVocê venceu!!!!!\n\n Sua pontuação foi: " + this.getContador());
             this.ganhou = true;

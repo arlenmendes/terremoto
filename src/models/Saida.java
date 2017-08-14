@@ -16,7 +16,7 @@ public class Saida implements Serializable {
     private Ambiente ambiente;
     protected StatusSaida status;
     
-    public Saida(Ambiente ambiente, String status, Item token, String descricao) {
+    public Saida(Ambiente ambiente, int status, Item token, String descricao) {
         this.ambiente = ambiente;
         this.status = new StatusSaida(token, status, descricao);
     }
@@ -32,7 +32,7 @@ public class Saida implements Serializable {
      * 
      * @return status da saida
      */
-    public String getStatusSaida() {
+    public int getStatusSaida() {
         return this.status.getStatus();
     }
     
@@ -48,7 +48,7 @@ public class Saida implements Serializable {
      * @param status
      * @param descricao
      */
-    public void mudarStatusDaSaida(String status, String descricao) {
+    public void mudarStatusDaSaida(int status, String descricao) {
         this.status.mudarStatus(status, descricao);
     }
     /**

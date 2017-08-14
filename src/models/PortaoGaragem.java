@@ -18,15 +18,13 @@ public class PortaoGaragem extends Saida  implements Serializable{
     private Gerador gerador;
     private Paciente paciente;
     public PortaoGaragem(   Ambiente ambiente,
-                            String status, 
+                            int status, 
                             Item token,
                             String descricao,
-                            Gerador gerador,
-                            Paciente paciente
+                            Gerador gerador
                         ) {
         super(ambiente, status, token, descricao);
         this.gerador = gerador;
-        this.paciente = paciente;
     }
     
     @Override
@@ -36,9 +34,10 @@ public class PortaoGaragem extends Saida  implements Serializable{
                 if(item != null){
                     return true;
                 }
-        }
-            
                 
+        } else {
+            System.out.println("gerador desligado");
+        }
         return false;
     }
     

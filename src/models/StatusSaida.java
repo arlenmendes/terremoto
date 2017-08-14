@@ -11,10 +11,10 @@ import java.io.Serializable;
 public class StatusSaida implements Serializable {
     private String descricao;
     private Item token;
-    private String status;
+    private int status;
     
     
-    public StatusSaida(Item token, String status, String descricao) {
+    public StatusSaida(Item token, int status, String descricao) {
         this.descricao = descricao;
         this.token = token;
         this.status = status;
@@ -40,7 +40,7 @@ public class StatusSaida implements Serializable {
      * 
      * @return status da saida
      */
-    public String getStatus() {
+    public int getStatus() {
         return this.status;
     }
     /**
@@ -48,7 +48,7 @@ public class StatusSaida implements Serializable {
      * @param status
      * @param descricao 
      */
-    public void mudarStatus(String status, String descricao) {
+    public void mudarStatus(int status, String descricao) {
         this.status = status;
         this.descricao = descricao;
     }

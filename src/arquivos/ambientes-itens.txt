@@ -1,0 +1,56 @@
+saguao;saguao do Hospital;/views/imagens/hospital.jpg;false;
+recepicao geral;Recepição Geral do Hospital;/views/imagens/hospital.jpg;false;
+triagem;triagem de pacientes do hospital;/views/imagens/hospital.jpg;false;
+corredor geral;Coredor Geral;/views/imagens/corredor.jpg;false;
+recepcao uti;Recepição da UTI.;/views/imagens/hospital.jpg;false;
+recepcao cti;Recepição da CTI.;/views/imagens/hospital.jpg;false;
+uti;Sala da UTI;/views/imagens/quarto.jpg;false;
+cti;Sala da CTI;/views/imagens/quarto.jpg;false;
+sala de espera uti;Sala de espera da UTI.;/views/imagens/sala.jpg;false;
+sala de espera cti;Sala de espera da CTI.;/views/imagens/sala.jpg;false;
+sala funcionarios;Sala exclusiva para funcionarios;/views/imagens/hospital.jpg;false;
+sala de limpeza;Sala de limpeza.;/views/imagens/hospital.jpg;false;
+almoxerifado;Almoxerifado;/views/imagens/hospital.jpg;false;
+sala de seguranca;Sala da Segurança do hospital;/views/imagens/hospital.jpg;false;
+#ambientes
+uti
+#ambiente-inicial
+chave;chave da porta da recepção para a garagem;2;
+bisturi;Bisturi para cirurgias;2;
+pe-de-cabra;Pe de Cabra de ferro;6;
+#itens
+saguao;sul;exterior;3;null;Saida Obstruida Por Destroços Do Predio.;
+saguao;norte;recepicao geral;1;null;Saida Liberada.;
+recepicao geral;sul;saguao;1;null;Saida Liberada.;
+recepicao geral;oeste;garagem;2;chave;Saida Trancada.;
+recepicao geral;norte;triagem;1;null;Saida Liberada.;
+triagem;sul;recepicao geral;1;null;Saida Liberada.;
+triagem;norte;corredor geral;1;null;Saida Liberada.;
+corredor geral;norte;recepcao cti;1;null;Saida Liberada.;
+corredor geral;leste;sala funcionarios;1;null;Saida Liberada.;
+corredor geral;sul;triagem;2;pe-de-cabra;Saida Liberada.;
+corredor geral;oeste;recepcao uti;1;null;Saida Liberada.;
+sala funcionarios;norte;sala de limpeza;1;null;Saida Liberada.;
+sala funcionarios;leste;almoxerifado;1;null;Saida Liberada.;
+sala funcionarios;sul;sala de seguranca;1;null;Saida Liberada.;
+sala funcionarios;oeste;corredor geral;1;null;Saida Liberada.;
+sala de limpeza;sul;sala funcionarios;1;null;Saida Liberada.;
+almoxerifado;oeste;sala funcionarios;1;null;Saida Liberada.;
+sala de seguranca;norte;sala funcionarios;1;null;Saida Liberada.;
+sala de seguranca;sul;sala de maquinas;1;null;Saida Liberada.;
+sala de maquinas;norte;sala de seguranca;1;null;Saida Liberada.;
+recepcao cti;norte;sala de espera cti;1;null;Saida Liberada.;
+recepcao cti;leste;cti;1;null;Saida Liberada.;
+recepcao cti;sul;corredor geral;1;null;Saida Liberada.;
+cti;oeste;recepcaoCti;1;null;Saida Liberada.;
+sala de espera cti;sul;recepcao cti;1;null;Saida Liberada.;
+recepcao uti;norte;salaEsperaUti;1;null;Saida Liberada.;
+recepcao uti;leste;corredor geral;1;null;Saida Liberada.;
+recepcao uti;oeste;uti;1;null;Saida Liberada.;
+uti;leste;recepcao uti;1;null;Saida Liberada.;
+sala de espera uti;sul;recepcao uti;1;null;Saida Liberada.;
+#saidas
+cti;bisturi;
+sala de seguranca;chave;
+almoxerifado;pe-de-cabra;
+#itens-ambientes

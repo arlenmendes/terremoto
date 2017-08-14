@@ -1,46 +1,63 @@
 package servicos;
 
 import java.io.Serializable;
+import java.util.Map;
 import models.Ambiente;
 import models.Gerador;
 import models.Item;
-import models.Paciente;
 import models.PortaoGaragem;
 import models.Saida;
-import persistencias.Persistencia;
+import persistencias.AmbientesItensDAO;
+import persistencias.PersistenciaBinaria;
 
 /**
  *  Esta classe é responsável por todo o controle das informações dos ambientes
  * @author arlen
  */
-public class AmbienteServico extends Persistencia implements Serializable {
+public class AmbienteServico extends PersistenciaBinaria implements Serializable {
     
     //cria itens
     private Item chave, bisturi, controlePortao, peDeCabra;
     private Gerador gerador;
     
     //status das portas
-    private final String liberada = "liberada";
-    private final String trancada = "trancada";
-    private final String obstruida = "obstruida";
+    private final int liberada = 1;
+    private final int trancada = 2;
+    private final int obstruida = 3;
     
     //descriçoes das saidas
-    private final String liberadaDescricao = "Porta Liberada.";
-    private final String trancadaDescricao = "Porta Trancada.";
-    private final String obstruidaDescricao = "Porta Obstruida Por Destroços Do Predio.";
+    private final String liberadaDescricao = "Saida Liberada.";
+    private final String trancadaDescricao = "Saida Trancada.";
+    private final String obstruidaDescricao = "Saida Obstruida Por Destroços Do Predio.";
     
+    //arquivo de persistencia
+    private AmbientesItensDAO ambientesItensDAO;
     private Ambiente ambienteAtual;
     
-    public AmbienteServico(Paciente paciente) {
-        ambienteAtual = this.prepararAmbientes(paciente);
+    public AmbienteServico() {
+        ambientesItensDAO = new AmbientesItensDAO();
+        ambienteAtual = this.prepararAmbientes();
+        
+    }
+    /**
+     * Esta funcao utiliza dos dados da Classe Modelo AmbientesItens 
+     * para retornar o ambiente inicial. Ela utiliza também do AmbientesItensDAO para ler do arquivo
+     * dinâmico os dados do sistema do jogo.
+     * @return ambiente Inicial
+     */
+    private Ambiente prepararAmbientes() {
+        
+        Map<String, Ambiente> ambientes = ambientesItensDAO.getAmbientesEItens().getAmbientes();
+        this.gerador = (Gerador) ambientes.get("sala de maquinas").getItem("gerador");
+        return ambientes.get(ambientesItensDAO.getAmbientesEItens().getAmbienteInicial());
+        
     }
     
     /**
      * Prepara os ambientes, com suas saidas e seus itens, e retorna o ambiente inicial.
-     * @param paciente do jogo
      * @return Ambiente atual
      */
-    private Ambiente prepararAmbientes(Paciente paciente) {
+    private Ambiente prepararAmbientes2() {
         Ambiente exterior, saguao, garagem, recepicaoGeral, triagem, corredor, recepcaoUti, uti, salaEsperaUti, recepcaoCti, cti, salaEsperaCti, salaFuncionarios, salaLimpeza, almoxerifado, salaSeguranca, salaMaquinas;
         
         //cria itens
@@ -80,7 +97,7 @@ public class AmbienteServico extends Persistencia implements Serializable {
         recepicaoGeral.setSaida("norte", new Saida(triagem, liberada, null, liberadaDescricao));
         
         garagem.setSaida("leste", new Saida(recepicaoGeral, trancada, chave, trancadaDescricao));
-        garagem.setSaida("oeste", new PortaoGaragem(exterior, trancada, controlePortao, trancadaDescricao,  gerador, paciente));
+        garagem.setSaida("oeste", new PortaoGaragem(exterior, trancada, controlePortao, trancadaDescricao,  gerador));
         
         triagem.setSaida("sul", new Saida(recepicaoGeral, liberada, null, liberadaDescricao));
         triagem.setSaida("norte", new Saida(corredor, liberada, null, liberadaDescricao));
@@ -158,7 +175,7 @@ public class AmbienteServico extends Persistencia implements Serializable {
      * @return liberada
      * 
      */
-    public String getStatusObstruida() {
+    public int getStatusObstruida() {
         return this.liberada;
     }
     
@@ -168,7 +185,7 @@ public class AmbienteServico extends Persistencia implements Serializable {
      * @return String
      * 
      */
-    public String getStatusLiberada() {
+    public int getStatusLiberada() {
         return this.liberada;
     }
     
@@ -178,7 +195,7 @@ public class AmbienteServico extends Persistencia implements Serializable {
      * @return String
      * 
      */
-    public String getStatusTrancada() {
+    public int getStatusTrancada() {
         return this.trancada;
     }
     

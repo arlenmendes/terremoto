@@ -19,7 +19,7 @@ public class UsuarioDAO {
     
     public UsuarioDAO() {
         try {
-            usuarios = Persistencia.carregarUsuarios();
+            usuarios = PersistenciaBinaria.carregarUsuarios();
         } catch (Exception e) {
             usuarios = new HashMap<>();
         }
@@ -36,7 +36,7 @@ public class UsuarioDAO {
     public boolean atualizarUsuario(Usuario usuario) {
         try {
             this.usuarios.put(usuario.getNome(), usuario);
-            Persistencia.salvarUsuarios(usuarios);
+            PersistenciaBinaria.salvarUsuarios(usuarios);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -51,7 +51,7 @@ public class UsuarioDAO {
     public boolean adicionaUsuario(Usuario usuario){
         try {
             this.usuarios.put(usuario.getNome(), usuario);
-            Persistencia.salvarUsuarios(usuarios);
+            PersistenciaBinaria.salvarUsuarios(usuarios);
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
