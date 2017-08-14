@@ -3,7 +3,7 @@ import configuracao.Textos;
 import persistencias.PersistenciaArquivo;
 import servicos.JogoServico;
 import views.JogoView;
-import views.SelecaoUsuarioView;
+import views.PrincipalView;
 
 
 
@@ -20,7 +20,7 @@ public class Programa {
      * @param args argumentos de linha de comando (não utilizados)
      */
     public static void main(String[] args) {
-        SelecaoUsuarioView telaLogin = new SelecaoUsuarioView();
+        PrincipalView telaLogin = new PrincipalView();
     
 //        PersistenciaArquivo pa = new PersistenciaArquivo();
 //        pa.buscarAmbientes();

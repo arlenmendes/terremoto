@@ -23,7 +23,7 @@ import servicos.UsuarioServico;
  * Esta classe é responsável pela tela de Login do sistema do jogo.
  * @author arlen
  */
-public class SelecaoUsuarioView {
+public class PrincipalView {
     private JFrame janela;
     private GridLayout layout;
     // Areas de texto da tela
@@ -37,7 +37,7 @@ public class SelecaoUsuarioView {
     /**
      * Construtor da classe.
      */
-    public SelecaoUsuarioView() {
+    public PrincipalView() {
         usuarioServico = new UsuarioServico();
         construirJanela();
     }
