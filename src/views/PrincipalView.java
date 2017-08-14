@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import servicos.UsuarioServico;
+import views.design.SelecaoAmbienteDesignView;
 
 /**
  * Esta classe é responsável pela tela de Login do sistema do jogo.
@@ -98,7 +99,7 @@ public class PrincipalView {
         btnModoDesign.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                SelecaoAmbienteDesignView sadv = new SelecaoAmbienteDesignView();
             }
         });
     }

@@ -1,5 +1,6 @@
 package servicos;
 
+import configuracao.ConfiguracaoSaida;
 import java.io.Serializable;
 import java.util.Map;
 import models.Ambiente;
@@ -21,14 +22,14 @@ public class AmbienteServico extends PersistenciaBinaria implements Serializable
     private Gerador gerador;
     
     //status das portas
-    private final int liberada = 1;
-    private final int trancada = 2;
-    private final int obstruida = 3;
+    private final int liberada = ConfiguracaoSaida.LIBERADA;
+    private final int trancada = ConfiguracaoSaida.TRANCADA;
+    private final int obstruida = ConfiguracaoSaida.OBSTRUIDA;
     
     //descriçoes das saidas
-    private final String liberadaDescricao = "Saida Liberada.";
-    private final String trancadaDescricao = "Saida Trancada.";
-    private final String obstruidaDescricao = "Saida Obstruida Por Destroços Do Predio.";
+    private final String liberadaDescricao = ConfiguracaoSaida.LIBERADA_DESCRICAO;
+    private final String trancadaDescricao = ConfiguracaoSaida.TRANCADA_DESCRICAO;
+    private final String obstruidaDescricao = ConfiguracaoSaida.ONSTRUIDA_DESCRICAO;
     
     //arquivo de persistencia
     private AmbientesItensDAO ambientesItensDAO;
