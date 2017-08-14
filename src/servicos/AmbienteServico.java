@@ -52,23 +52,23 @@ public class AmbienteServico extends Persistencia implements Serializable {
         
         
         // cria os ambientes
-        exterior = new Ambiente("exterior do hospital", "/views/imagens/hospital.jpg");
-        saguao = new Ambiente("saguao do Hospital", "/views/imagens/hospital.jpg");
-        garagem = new Ambiente("Garagem do hospital", "/views/imagens/hospital.jpg");
-        recepicaoGeral = new Ambiente("Recepição Geral do Hospital", "/views/imagens/hospital.jpg");
-        triagem = new Ambiente("triagem de pacientes do hospital", "/views/imagens/hospital.jpg");
-        corredor = new Ambiente("Coredor Geral", "/views/imagens/corredor.jpg");
-        recepcaoUti = new Ambiente("Recepição da UTI.", "/views/imagens/hospital.jpg");
-        recepcaoCti = new Ambiente("Recepição da CTI.", "/views/imagens/hospital.jpg");
-        uti = new Ambiente("Sala da UTI", "/views/imagens/quarto.jpg");
-        cti = new Ambiente("Sala da CTI", "/views/imagens/quarto.jpg");
-        salaEsperaUti = new Ambiente("Sala de espera da UTI.", "/views/imagens/sala.jpg");
-        salaEsperaCti = new Ambiente("Sala de espera da CTI.", "/views/imagens/sala.jpg");
-        salaFuncionarios = new Ambiente("Sala exclusiva para funcionarios.", "/views/imagens/hospital.jpg");
-        salaLimpeza = new Ambiente("Sala de limpeza.", "/views/imagens/hospital.jpg");
-        almoxerifado = new Ambiente("Almoxerifado", "/views/imagens/hospital.jpg");
-        salaSeguranca = new Ambiente("Sala da Segurança", "/views/imagens/hospital.jpg");
-        salaMaquinas = new Ambiente("Sala das maquinas do Hospital.", "/views/imagens/hospital.jpg");
+        exterior = new Ambiente("exterior do hospital", "/views/imagens/hospital.jpg", true);
+        saguao = new Ambiente("saguao do Hospital", "/views/imagens/hospital.jpg", false);
+        garagem = new Ambiente("Garagem do hospital", "/views/imagens/hospital.jpg", false);
+        recepicaoGeral = new Ambiente("Recepição Geral do Hospital", "/views/imagens/hospital.jpg", false);
+        triagem = new Ambiente("triagem de pacientes do hospital", "/views/imagens/hospital.jpg", false);
+        corredor = new Ambiente("Coredor Geral", "/views/imagens/corredor.jpg", false);
+        recepcaoUti = new Ambiente("Recepição da UTI.", "/views/imagens/hospital.jpg", false);
+        recepcaoCti = new Ambiente("Recepição da CTI.", "/views/imagens/hospital.jpg", false);
+        uti = new Ambiente("Sala da UTI", "/views/imagens/quarto.jpg", false);
+        cti = new Ambiente("Sala da CTI", "/views/imagens/quarto.jpg", false);
+        salaEsperaUti = new Ambiente("Sala de espera da UTI.", "/views/imagens/sala.jpg", false);
+        salaEsperaCti = new Ambiente("Sala de espera da CTI.", "/views/imagens/sala.jpg", false);
+        salaFuncionarios = new Ambiente("Sala exclusiva para funcionarios.", "/views/imagens/hospital.jpg", false);
+        salaLimpeza = new Ambiente("Sala de limpeza.", "/views/imagens/hospital.jpg", false);
+        almoxerifado = new Ambiente("Almoxerifado", "/views/imagens/hospital.jpg", false);
+        salaSeguranca = new Ambiente("Sala da Segurança", "/views/imagens/hospital.jpg", false);
+        salaMaquinas = new Ambiente("Sala das maquinas do Hospital.", "/views/imagens/hospital.jpg", false);
         
         
         // inicializa as saidas dos ambientes

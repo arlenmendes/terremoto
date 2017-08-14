@@ -60,7 +60,7 @@ public class SelecaoUsuarioView {
         
         cbUsuarios = new JComboBox();
         preparaListaUsuarios();
-        btnEntrar = new JButton("Login");
+        btnEntrar = new JButton("Entrar");
         btnNovoUsuario = new JButton("Novo Usuário");
         
         btnEntrar.addActionListener(new ActionListener() {
@@ -80,9 +80,13 @@ public class SelecaoUsuarioView {
                 String nome = JOptionPane.showInputDialog("Informe o nome do novo Usuario");
                 
                 if(nome != null) {
-                    String insert = usuarioServico.novoUsuario(nome);
-                    JOptionPane.showMessageDialog(null, insert);
-                    preparaListaUsuarios();
+                    if(nome.length() > 3 && nome.length() < 21) {
+                        String insert = usuarioServico.novoUsuario(nome);
+                        JOptionPane.showMessageDialog(null, insert);
+                        preparaListaUsuarios();
+                    } else {
+                        JOptionPane.showMessageDialog(janela, "O nome deve ter no mínimo 4 caracteres e no máxiomo 20.");
+                    }
                 }
             }
         });

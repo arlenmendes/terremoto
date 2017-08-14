@@ -2,6 +2,8 @@ package models;
 
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
 import models.Item;
 import models.Saida;
 import models.Ambiente;
@@ -17,8 +19,8 @@ public class PortaoGaragem extends Saida  implements Serializable{
     private Paciente paciente;
     public PortaoGaragem(   Ambiente ambiente,
                             String status, 
-                            Item token, 
-                            String descricao, 
+                            Item token,
+                            String descricao,
                             Gerador gerador,
                             Paciente paciente
                         ) {
@@ -28,11 +30,15 @@ public class PortaoGaragem extends Saida  implements Serializable{
     }
     
     @Override
-    public boolean liberarSaida(Item item){
-        if(this.gerador.ligado())
-            if(item != null)
-                if(item == super.status.getToken())
+    public boolean liberarSaida(HashMap<String, Item> itens){
+        if(this.gerador.ligado()){
+            Item item = itens.get(super.getNomeToken());
+                if(item != null){
                     return true;
+                }
+        }
+            
+                
         return false;
     }
     

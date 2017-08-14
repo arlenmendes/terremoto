@@ -20,17 +20,16 @@ import servicos.DadosDinamicos;
  * @author arlen
  */
 public class Persistencia {
-    private static final String nomeArquivo = "dados.bat";
     private static final String arquivoUsuarios = "usuarios.bat";
     
     
     /**
      * Esta função salva um binario da Classe DadosDinamicos.
      */
-    public static void salvarDados(DadosDinamicos  dados) throws Exception{
+    public static void salvarDados(DadosDinamicos  dados, String nomeArquivo) throws Exception{
         
         ObjectOutputStream oos
-                = new ObjectOutputStream(new FileOutputStream(nomeArquivo));
+                = new ObjectOutputStream(new FileOutputStream(nomeArquivo + ".bat"));
         oos.writeObject(dados);
         oos.close();
     }
@@ -39,11 +38,11 @@ public class Persistencia {
      * uma instância serializada.
      * @return JogoServico
      */
-    public static DadosDinamicos carregarDados() throws Exception{
+    public static DadosDinamicos carregarDados(String nomeArquivo) throws Exception{
         DadosDinamicos dd = null;
         
         ObjectInputStream ois = new ObjectInputStream(
-                                            new FileInputStream(nomeArquivo)
+                                            new FileInputStream(nomeArquivo + ".bat")
                                         );
         dd = (DadosDinamicos)ois.readObject();
         ois.close();

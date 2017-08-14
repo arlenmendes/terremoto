@@ -5,7 +5,13 @@
         <group>
             <file>file:/home/arlen/projetos/java/Terremoto/src/views/JogoView.java</file>
             <file>file:/home/arlen/projetos/java/Terremoto/src/servicos/JogoServico.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/persistencias/UsuarioDAO.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/views/SelecaoUsuarioView.java</file>
             <file>file:/home/arlen/projetos/java/Terremoto/src/servicos/AmbienteServico.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/Programa.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/models/Usuario.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/persistencias/Persistencia.java</file>
+            <file>file:/home/arlen/projetos/java/Terremoto/src/servicos/UsuarioServico.java</file>
         </group>
     </open-files>
 </project-private>

@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
 /**
@@ -29,6 +30,7 @@ public class JogoView {
     //botoes da tela
     private JButton btnNovoJogo;
     private JButton btnCarregarJogo;
+    private JButton btnRanking;
     //label da tela
     private JLabel lbBoasVindas;
     //textos da tela
@@ -36,6 +38,7 @@ public class JogoView {
     private String titulo;
     private String textoBoasVindas;
     private String nomeUsuario;
+    private JTextField txtNomeUsuario;
     
     public JogoView(String titulo, String textoBoasVindas, String nomeUsuario) {
         this.titulo = titulo;
@@ -57,22 +60,32 @@ public class JogoView {
         layout = new BorderLayout();
         btnNovoJogo = new JButton("Novo Jogo");
         btnCarregarJogo = new JButton("Carregar Jogo Salvo");
+        btnRanking = new JButton("Ranking de Jogadores");
         taBoasVindas = new JTextPane();
         taBoasVindas.setText(textoBoasVindas);
         taBoasVindas.setEditable(false);
-//        lbBoasVindas = new JLabel(this.textoBoasVindas);
+        txtNomeUsuario = new JTextField(nomeUsuario);
+        txtNomeUsuario.setEditable(false);
+        
         // adiciona o método que tratará o evento de clique no botão Novo Jogo
         btnNovoJogo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AmbienteView ambienteView = new AmbienteView(true);
+                AmbienteView ambienteView = new AmbienteView(true, nomeUsuario);
             }
         });
-        
+        // adiciona o método que tratará o evento de clique no botão Carregar Jogo
         btnCarregarJogo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AmbienteView ambienteView = new AmbienteView(false);
+                AmbienteView ambienteView = new AmbienteView(false, nomeUsuario);
+            }
+        });
+        //adiciona o método que tratará o evento de clique no botão Ranking
+        btnRanking.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RankingView ranking = new RankingView();
             }
         });
     }
@@ -84,14 +97,21 @@ public class JogoView {
         janela.setLayout(layout);
         janela.setLocationRelativeTo(null);
         //adicionar os componentes da tela
-        janela.add(new JLabel("Usuário: " + nomeUsuario), BorderLayout.NORTH);
+        
+        JPanel painelSuperior = new JPanel(new GridLayout(2, 1));
+        
+        painelSuperior.add(new JLabel("Usuário:"));
+        painelSuperior.add(txtNomeUsuario);
+        
+        janela.add(painelSuperior, BorderLayout.NORTH);
         janela.add(taBoasVindas, BorderLayout.CENTER);
         
-        JPanel painelEsquerdo = new JPanel(new GridLayout(2,1));
+        JPanel painelDireito = new JPanel(new GridLayout(3,1));
         
-        painelEsquerdo.add(btnNovoJogo);
-        painelEsquerdo.add(btnCarregarJogo);
-        janela.add(painelEsquerdo, BorderLayout.EAST);
+        painelDireito.add(btnNovoJogo);
+        painelDireito.add(btnCarregarJogo);
+        painelDireito.add(btnRanking);
+        janela.add(painelDireito, BorderLayout.EAST);
         janela.setVisible(true);
     }
 }

@@ -15,7 +15,7 @@ public class Gerador extends Item  implements Serializable{
     private boolean ligado;
     
     private int tempoLigado;
-    private int maximoTempoLigado = 6;
+    private int maximoTempoLigado = 7;
     
     public Gerador(String nome, String descricao, int peso) {
         super(nome, descricao, peso);

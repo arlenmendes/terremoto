@@ -25,12 +25,18 @@ public class Paciente  implements Serializable {
         pesoMaximoItens = 6;
     }
     /**
-     * 
-     * @return intens coletados pelo jogador
+     * Retorna um item com o nome passado por parametro
+     * @param nome
+     * @return intem
      */
     public Item getItem(String nome) {
         return this.itensColetados.get(nome);
     }
+    
+    public HashMap<String, Item> getItens(){
+        return this.itensColetados;
+    }
+    
     /**
      * 
      * @return listagem dos meus itens coletados

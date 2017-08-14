@@ -63,4 +63,16 @@ public class UsuarioServico {
             return "Erro ao cadastrar";
         }
     }
+    /**
+     * Esta função adiciona um novo usuario.
+     * @param nomeUsuario
+     * @param pontuacao
+     */
+    public void adicionaPontuacaoParaUsuario(String nomeUsuario, int pontuacao){
+        Usuario usuario = dao.getUsuarios().get(nomeUsuario);
+        
+        usuario.addPontuacao(pontuacao);
+        
+        dao.atualizarUsuario(usuario);
+    }
 }

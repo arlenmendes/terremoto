@@ -27,6 +27,8 @@ public class Ambiente implements Serializable{
     private HashMap<String, Saida> saidas;
     private HashMap<String, Item> itens;
     private String imagem;
+    //este boleano informa se estar no ambiente significa ganhar o jogo.
+    private boolean ambienteDeVitoria;
 
     /**
      * Cria um ambiente com a "descricao" passada e o caminho da imagem que 
@@ -35,11 +37,12 @@ public class Ambiente implements Serializable{
      * "Recepção"
      * @param descricao A descricao do ambiente.
      */
-    public Ambiente(String descricao, String imagem)  {
+    public Ambiente(String descricao, String imagem, boolean ambienteDeVitoria)  {
         this.descricao = descricao;
         saidas = new HashMap<String, Saida>();
         itens = new HashMap<String, Item>();
         this.imagem = imagem;
+        this.ambienteDeVitoria = ambienteDeVitoria;
     }
 
     /**
@@ -150,5 +153,12 @@ public class Ambiente implements Serializable{
     public void setImagem(String imagem) {
         this.imagem = imagem;
     }
-
+    
+    /**
+     * Retorna um boleano para verificar se este é um ambiente de vitoria.
+     * @return ambienteDeVitoria
+     */
+    public boolean getAmbienteDeVitoria() {
+        return this.ambienteDeVitoria;
+    }
 }

@@ -5,7 +5,6 @@
  */
 package servicos;
 
-import java.io.IOException;
 import java.util.List;
 import models.Ambiente;
 import models.Item;
@@ -24,12 +23,18 @@ public class JogoServico {
     private Paciente paciente;
     private Analisador analisador;
     private boolean gameOver;
+    private boolean ganhou;
     private int contador;
     //Variavel para guardar o ambiente atual
     private Ambiente ambienteAtual;
     //Controller para trabalhar os ambientes
     private AmbienteServico ambienteServico;
     
+    private String nomeUsuario;
+    
+    public JogoServico(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
+    }
     /**
      * Metodo que inicia um jogo do Zero.
      * Inicia todos os dados que serão utilizados nas iterações com o jogador.
@@ -37,6 +42,7 @@ public class JogoServico {
     public void novoJogo(){
         contador = 0;
         gameOver = false;
+        ganhou = false;
         paciente = new Paciente();
         analisador = new Analisador();
         ambienteServico = new AmbienteServico(paciente);
@@ -54,7 +60,7 @@ public class JogoServico {
         try {
 //            paciente = Persistencia.carregarPaciente();
 //            ambienteServico = Persistencia.carregarAmbienteServico();
-            DadosDinamicos dd = Persistencia.carregarDados();
+            DadosDinamicos dd = Persistencia.carregarDados(nomeUsuario);
             paciente = dd.getPaciente();
             ambienteServico = dd.getAmbienteServico();
             contador = dd.getContador();
@@ -67,14 +73,13 @@ public class JogoServico {
         }
         ambienteAtual = ambienteServico.getAmbienteAtual();
     }
-    
-    public void salvarJogo() {
+    /**
+     * Esta função salva os dados dinamicos do jogo.
+     */
+    public void salvarJogo(String nomeUsuario) {
         try {
-//            Persistencia.salvarAmbienteServico(ambienteServico);
-//            Persistencia.salvarPaciente(paciente);
-
             DadosDinamicos dd = new DadosDinamicos(ambienteServico, paciente, contador);
-            Persistencia.salvarDados(dd);
+            Persistencia.salvarDados(dd, nomeUsuario);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -119,7 +124,7 @@ public class JogoServico {
                 
             } else if(saida.getStatusSaida().equals(ambienteServico.getStatusTrancada())) {
                 //verifica se o jogador possui o token necessario para abrir a porta
-                if(saida.liberarSaida(paciente.getItem(saida.getNomeToken()))) {
+                if(saida.liberarSaida(paciente.getItens())) {
                     saida.mudarStatusDaSaida(ambienteServico.getStatusLiberada(), ambienteServico.getLiberadaDescricao());
                     Alerta.mensagem("Você desbloqueou esta saida... mudando de  ambiente.");
                     ambienteAtual = saida.getAmbiente();
@@ -188,9 +193,11 @@ public class JogoServico {
             default:
                 break;
         }
-        
-        if(ambienteAtual.getDescricao().equals("exterior do hospital")){
+        System.out.println("here");
+        if(ambienteAtual.getAmbienteDeVitoria()){
             Alerta.mensagem("Parabéns, você conseguiu sair do Hospital\nVocê venceu!!!!!\n\n Sua pontuação foi: " + this.getContador());
+            this.ganhou = true;
+            this.gameOver = true;
         } else if(ambienteServico.getGerador().ligado()){
             if(!ambienteServico.getGerador().haTempoDisponivel()) {
                 Alerta.mensagem("FIM DO JOGO!! \nO gerador Acabou a Energia e você não pode mais\nsair do Hospital.");
@@ -285,7 +292,16 @@ public class JogoServico {
     }
     
     /**
+     * Verifica se o jogador venceu o jogo.
+     * @return Boolean 
+     */
+    public boolean getVenceu() {
+        return this.ganhou;
+    }
+    
+    /**
      * Retorna o contador que indica o número de movimentos realizados.
+     * @return contador
      */
     
     public int getContador(){

@@ -2,6 +2,8 @@ package models;
 
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
 import models.Ambiente;
 
 
@@ -56,10 +58,10 @@ public class Saida implements Serializable {
         return this.status.getToken().getNome();
     }
     
-    public boolean liberarSaida(Item item){
+    public boolean liberarSaida(HashMap<String, Item> itens){
+        Item item = itens.get(this.getNomeToken());
         if(item != null)
-            if(item == this.status.getToken())
-                return true;
+            return true;
         return false;
         
     }
