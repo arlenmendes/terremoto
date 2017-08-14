@@ -11,7 +11,6 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
-import java.util.List;
 import models.Usuario;
 import servicos.DadosDinamicos;
 
@@ -29,7 +28,7 @@ public class PersistenciaBinaria {
     public static void salvarDados(DadosDinamicos  dados, String nomeArquivo) throws Exception{
         
         ObjectOutputStream oos
-                = new ObjectOutputStream(new FileOutputStream(nomeArquivo + ".bat"));
+                = new ObjectOutputStream(new FileOutputStream("src/arquivos/" + nomeArquivo + ".bat"));
         oos.writeObject(dados);
         oos.close();
     }
@@ -42,7 +41,7 @@ public class PersistenciaBinaria {
         DadosDinamicos dd = null;
         
         ObjectInputStream ois = new ObjectInputStream(
-                                            new FileInputStream(nomeArquivo + ".bat")
+                                            new FileInputStream("src/arquivos/" + nomeArquivo + ".bat")
                                         );
         dd = (DadosDinamicos)ois.readObject();
         ois.close();
@@ -56,7 +55,7 @@ public class PersistenciaBinaria {
     public static void salvarUsuarios(HashMap<String, Usuario> usuarios) throws Exception{
         
         ObjectOutputStream oos
-                = new ObjectOutputStream(new FileOutputStream(arquivoUsuarios));
+                = new ObjectOutputStream(new FileOutputStream("src/arquivos/" + arquivoUsuarios));
         oos.writeObject(usuarios);
         oos.close();
     }
@@ -69,7 +68,7 @@ public class PersistenciaBinaria {
     public static HashMap<String, Usuario> carregarUsuarios() throws Exception{
         HashMap<String, Usuario> usuarios = null;
         ObjectInputStream ois = new ObjectInputStream(
-                                            new FileInputStream(arquivoUsuarios)
+                                            new FileInputStream("src/arquivos/" + arquivoUsuarios)
                                         );
         usuarios = (HashMap<String, Usuario>)ois.readObject();
         ois.close();
