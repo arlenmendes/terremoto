@@ -10,7 +10,6 @@ package views.design;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,6 +20,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import models.Ambiente;
+import models.Saida;
+import configuracao.ConfiguracaoSaida;
 import servicos.design.DesignService;
 import views.Alerta;
 
@@ -241,6 +242,13 @@ public class AmbienteDesignView {
         if(!txtNome.getText().equals("")){
             //verifica se já existe um ambiente com este nome
             if(!nomesAmbientes.contains(txtNome.getText())){
+                boolean ambVitoria;
+                if(ambienteVitoria.isSelected())
+                    ambVitoria = true;
+                else
+                    ambVitoria = false;
+                //inicia um ambiente
+                Ambiente ambiente = new Ambiente(txtDescricao.getText(), "src/views/imagens/" + txtImagem.getText(), ambVitoria);
                 //booleans para verificar as saidas.
                 boolean norte = false, sul = false, leste = false,  oeste = false;
                 //validar a saida Norte
@@ -251,6 +259,11 @@ public class AmbienteDesignView {
                         Alerta.mensagem("A Norte aponta para um ambiente que já  contém uma saida para a sua saida sul.");
                     } else {
                         norte = true;
+                        //verifica se foi selecionado algum token para esta saida
+                        if(cbTokenSaidaNorte.getSelectedIndex() > 0)
+                            ambiente.setSaida("norte", new Saida(designService.getAmbientePorNome(cbSaidaNorte.getSelectedItem().toString()), ConfiguracaoSaida.TRANCADA, designService.getItemPorNome(cbTokenSaidaNorte.getSelectedItem().toString()), ConfiguracaoSaida.TRANCADA_DESCRICAO));
+                        else
+                            ambiente.setSaida("norte", new Saida(designService.getAmbientePorNome(cbSaidaNorte.getSelectedItem().toString()), ConfiguracaoSaida.LIBERADA, null, ConfiguracaoSaida.LIBERADA_DESCRICAO));
                     }
                 } else {
                     norte = true;
@@ -263,6 +276,11 @@ public class AmbienteDesignView {
                         Alerta.mensagem("A Saida Sul aponta para um ambiente que já  contém uma saida para a sua saida norte.");
                     } else {
                         sul = true;
+                        //verifica se foi selecionado algum token para esta saida
+                        if(cbTokenSaidaSul.getSelectedIndex() > 0)
+                            ambiente.setSaida("sul", new Saida(designService.getAmbientePorNome(cbSaidaSul.getSelectedItem().toString()), ConfiguracaoSaida.TRANCADA, designService.getItemPorNome(cbTokenSaidaSul.getSelectedItem().toString()), ConfiguracaoSaida.TRANCADA_DESCRICAO));
+                        else
+                            ambiente.setSaida("sul", new Saida(designService.getAmbientePorNome(cbSaidaSul.getSelectedItem().toString()), ConfiguracaoSaida.LIBERADA, null, ConfiguracaoSaida.LIBERADA_DESCRICAO));
                     }
                 } else {
                     sul = true;
@@ -275,6 +293,11 @@ public class AmbienteDesignView {
                         Alerta.mensagem("A Saida Leste aponta para um ambiente que já  contém uma saida para a sua saida oeste.");
                     } else {
                         leste = true;
+                        //verifica se foi selecionado algum token para esta saida
+                        if(cbTokenSaidaLeste.getSelectedIndex() > 0)
+                            ambiente.setSaida("leste", new Saida(designService.getAmbientePorNome(cbSaidaSul.getSelectedItem().toString()), ConfiguracaoSaida.TRANCADA, designService.getItemPorNome(cbTokenSaidaLeste.getSelectedItem().toString()), ConfiguracaoSaida.TRANCADA_DESCRICAO));
+                        else
+                            ambiente.setSaida("leste", new Saida(designService.getAmbientePorNome(cbSaidaSul.getSelectedItem().toString()), ConfiguracaoSaida.LIBERADA, null, ConfiguracaoSaida.LIBERADA_DESCRICAO));
                     }
                 } else {
                     leste = true;
@@ -287,18 +310,18 @@ public class AmbienteDesignView {
                         Alerta.mensagem("A Saida Oeste aponta para um ambiente que já  contém uma saida para a sua saida leste.");
                     } else {
                         oeste = true;
+                        //verifica se foi selecionado algum token para esta saida
+                        if(cbTokenSaidaOeste.getSelectedIndex() > 0)
+                            ambiente.setSaida("oeste", new Saida(designService.getAmbientePorNome(cbSaidaSul.getSelectedItem().toString()), ConfiguracaoSaida.TRANCADA, designService.getItemPorNome(cbTokenSaidaOeste.getSelectedItem().toString()), ConfiguracaoSaida.TRANCADA_DESCRICAO));
+                        else
+                            ambiente.setSaida("oeste", new Saida(designService.getAmbientePorNome(cbSaidaSul.getSelectedItem().toString()), ConfiguracaoSaida.LIBERADA, null, ConfiguracaoSaida.LIBERADA_DESCRICAO));
                     }
                 } else {
                     oeste = true;
                 }
                 
                 if(norte && sul &&  leste && oeste) {
-                    boolean ambVitoria;
-                    if(ambienteVitoria.isSelected())
-                        ambVitoria = true;
-                    else
-                        ambVitoria = false;
-                    Ambiente ambiente = new Ambiente(txtDescricao.getText(), "src/views/imagens/" + txtImagem.getText(), ambVitoria);
+                    
                     designService.salvarAmbiente(txtNome.getText(), ambiente);
                 }
             } else {

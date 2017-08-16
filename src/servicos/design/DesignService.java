@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 import models.Ambiente;
 import models.AmbientesItens;
+import models.Item;
 import persistencias.AmbientesItensDAO;
 
 /**
@@ -43,5 +44,9 @@ public class DesignService {
     
     public void salvarAmbiente(String nome, Ambiente ambiente) {
         System.out.println("tudo OK");
+    }
+    
+    public Item getItemPorNome(String nome) {
+        return this.ambientesItensDAO.getAmbientesEItens().getItens().get(nome);
     }
 }
