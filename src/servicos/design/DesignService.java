@@ -7,6 +7,7 @@ package servicos.design;
 
 import java.util.List;
 import java.util.Set;
+import models.Ambiente;
 import models.AmbientesItens;
 import persistencias.AmbientesItensDAO;
 
@@ -30,5 +31,17 @@ public class DesignService {
     
     public List<String> getNomeAmbientesEstaticos() {
         return this.ambientesItensDAO.getAmbientesEItens().getNomeAmbientesEstaticos();
+    }
+    
+    public Set<String> getNomeTodosItens() {
+        return this.ambientesItensDAO.getAmbientesEItens().getItens().keySet();
+    }
+    
+    public Ambiente getAmbientePorNome(String nome) {
+        return this.ambientesItensDAO.getAmbientesEItens().getAmbientes().get(nome);
+    }
+    
+    public void salvarAmbiente(String nome, Ambiente ambiente) {
+        System.out.println("tudo OK");
     }
 }

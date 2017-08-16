@@ -12,6 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import servicos.design.DesignService;
 
 /**
@@ -29,12 +32,14 @@ public class SelecaoAmbienteDesignView {
     private JButton btnEditar;
     private JButton btnNovo;
     private JButton btnRemover;
-    private AmbienteDesinView ambienteDesinView;
+    private AmbienteDesignView ambienteDesinView;
+    //Area de texto de informações
+    private JTextArea informacoes;
     
     public SelecaoAmbienteDesignView() {
         this.designService = new DesignService();
         construirJanela();
-        ambienteDesinView = new AmbienteDesinView();
+        ambienteDesinView = new AmbienteDesignView();
     }
     
     private void construirJanela() {
@@ -55,7 +60,21 @@ public class SelecaoAmbienteDesignView {
                 verificaAmbienteEstatico();
             }
         });
+        //
+        String info = "Os ambientes: \n";
         
+        for(String s : designService.getNomeAmbientesEstaticos()){
+            info += s + ";\n";
+        }
+        //area de informações
+        info += "não podem ser removidos, devido a terem tratamentos especiais "
+                + "dentro do jogo. Mas podem ser alterados, como o nome por exemplo.";
+        
+        //area de informações
+        informacoes = new JTextArea();
+        informacoes.setText(info);
+        
+        //botoes
         btnEditar = new JButton("Editar");
         btnRemover = new JButton("Remover");
         btnNovo = new JButton("Novo Ambiente");
@@ -73,8 +92,8 @@ public class SelecaoAmbienteDesignView {
     }
     
     private void montarJanela() {
-        janela.setLayout(new GridLayout(3,1));
-        janela.setSize(350, 200);
+        janela.setLayout(new GridLayout(4,1));
+        janela.setSize(350, 250);
         janela.setLocationRelativeTo(null);
         
         janela.add(ambientes);
@@ -85,6 +104,11 @@ public class SelecaoAmbienteDesignView {
         
         janela.add(painelAcoesAmbienteSelecionado);
         janela.add(btnNovo);
+        //area de informações
+        informacoes.setLineWrap(true);
+        JScrollPane sp = new JScrollPane(informacoes);
+        
+        janela.add(sp);
     }
     /**
      * Esta função prepara o combobox de ambientes.

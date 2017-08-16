@@ -51,6 +51,8 @@ public class AmbientesItens {
         ambientes.put("garagem", garagem);
         ambientes.put("exterior", exterior);
         ambientes.put("sala de maquinas", salaMaquinas);
+        
+        itens.put("controle-portao", controlePortao);
         //saidas estaticas
         garagem.setSaida("oeste", new PortaoGaragem(exterior, 2, controlePortao, "Saida Trancada.",  gerador));
         
